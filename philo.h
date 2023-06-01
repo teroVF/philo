@@ -6,17 +6,19 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/05/31 02:21:18 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/01 01:50:48 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdbool.h>
-#include <pthread.h>
-#include <sys/time.h>
-#include "error_msg.h"
+#ifndef PHILO_H
+# define PHILO_H
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdbool.h>
+# include <pthread.h>
+# include <sys/time.h>
+# include "error_msg.h"
 
 typedef struct s_program
 {
@@ -37,3 +39,6 @@ typedef struct	s_philo
 	
 }				t_philo;
 
+void    ft_usleep(__ino64_t up)
+
+#endif

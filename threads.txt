@@ -1,0 +1,54 @@
+pthreads API
+
+the functions that compromises the pthreads API can be grouped into three major categories
+
+1- Thread Management
+Rotines that work directly on threads - creating, detaching, joining etc
+also include fucntions to set/query thread atributes(joinable, scheduling etc.)
+
+2- synchronization
+Routine that manage read/write locks and barriers and deal with synchronization
+mutex functions provide for creating, destroying, locking and unlocking mutex (mutual exclusion)
+
+3-condition variables
+    routines that adress communications between threads that share a mutex
+    based upon programmer specified conditions
+
+Operations that can be performed on threads include:
+thread creation
+termination
+synchronization (joins, blocking)
+schedulling
+data Management
+process interaction
+
+CREATING A THREAD 
+the lifecycle of a thread, much like a process, begins with creation
+    threds are not forked from a parent to create a child
+    instead they simply created with a starting function as the entry point
+on POSIX (Portable Operating System Interface) operating systems, there is a library named pthread.h
+    allows you to creat threads and perform many operations on threads
+    must include this library when creating and using threads
+
+the pthread_create function is called to create a new thread and make it executable
+    initially, yout main() program comprises a single, default thread and all other threads must be explicitly created by the programmer
+
+the maximum number of threads tha may be created by a process is implematation dependent
+once created, threads ar peers, and may create other threads
+thre is no implied hierarchy or dependecy between threads
+
+pthread_create takes four arguments
+
+the first argument is of type pthread
+    an integer used to identify tthe thread in the systems
+    upon successful completion, pthread_create() stores the ID of the created thread in the location referenced by thread
+
+the second argument specifies attributes for the thread
+    you can simply a thread attributes object, or NULL for the default values
+
+the third argument is name of the function that the thread will executable once it is created
+
+the fourth argument is used to pass arguments to the funtion (start_routine)
+    a pointer cast of type void is required
+    NULL may be used if no argument is tobe passed
+    to pass multiple arguments, you would need to use a pointer to a structure

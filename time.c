@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routine.c                                          :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/31 02:23:05 by anvieira          #+#    #+#             */
-/*   Updated: 2023/06/01 02:22:02 by anvieira         ###   ########.fr       */
+/*   Created: 2023/05/31 22:03:35 by anvieira          #+#    #+#             */
+/*   Updated: 2023/06/01 01:50:57 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <sys/time.h>
+#include <stdio.h>
 
-void eat(t_philo *philo, __ino64_t up)
+__ino64_t    milliseconds(void)
 {
-    /* pegar nos dois garfos
-    e depois eh que come! */
-
-    pick_forks();
-    //mutex ao garfos
-    /* ft_usleep(eating time) */
+    struct timeval time;
     
-    printf("%llu: the philo n %d is eating...\n", time, n_philo);
-    if (meals == 1)
-        /* aumenta meals */
-    /* desbloquear mutex */
-    
+    gettimeofday(&time, NULL);
+    return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void    routine()
+void    ft_usleep(__ino64_t up)
 {
-    void eating();
-    void sleeping();
-    void thinking();
+    __ino64_t   start;
+    start = milliseconds();
+    while ((milliseconds() - start) * 1000 < up)
+		continue ;
 }

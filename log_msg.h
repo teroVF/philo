@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 03:53:52 by antero            #+#    #+#             */
-/*   Updated: 2023/06/01 01:59:34 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/05/31 02:20:18 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 /* ERROR MESSAGES */
 /* arguments validation errors*/
-# define EAT "Few Arg"
+# define FEW_ARG "Few Arguments."
 
 #endif
