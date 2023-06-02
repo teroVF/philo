@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/06/01 01:50:48 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/02 06:32:08 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,30 @@
 # include "error_msg.h"
 
 typedef struct s_program
-{
-    t_philo				*philo;
-	__int64_t		time_die;
-	__int64_t		time_eat;
-	__int64_t		time_sleep;
+{	
+    t_philo		*philo;
+	int			nbr_philo;
+	__uint64_t	time_die;
+	__uint64_t	time_eat;
+	__uint64_t	time_sleep;
+	__uint64_t	start;
+	__uint64_t	starve;
+	bool		meals;
+	pthread_mutex_t mutex_fork;
 }				t_program;
 
 typedef struct	s_philo
 {
+	pthread_t	thread; //nome
     int		pos;
 	bool	even;
-	bool	fork;
 	int		numb_meals;
+	__uint64_t	last_meal;
 	t_philo next;
 	t_philo previous;
-	
 }				t_philo;
 
-void    ft_usleep(__ino64_t up)
+void    ft_usleep(__uint64_t up);
+long	ft_atoi(const char *str);
 
 #endif

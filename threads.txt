@@ -52,3 +52,11 @@ the fourth argument is used to pass arguments to the funtion (start_routine)
     a pointer cast of type void is required
     NULL may be used if no argument is tobe passed
     to pass multiple arguments, you would need to use a pointer to a structure
+
+pthread_join
+it is often useful to be able to identify when a thread has completed or exited
+the method for doing this is to join the thread, which a lot like the wait() call for processes
+a join is performed when one wants to wait for a thread to finish
+used to link the current thread pocess to another thread
+a thread calling routine may launch multiple threads then wait for them to finish to get the results
+a call to 
