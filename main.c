@@ -41,7 +41,7 @@ int main(void)
 {
     t_queijo *x;
     pthread_t a;
-pthread_t b;
+    pthread_t b;
 
     x->n = 100;
     pthread_mutex_init(&x->mtx_queijo, NULL);

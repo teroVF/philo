@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_msg.h                                        :+:      :+:    :+:   */
+/*   log_msg.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 03:53:52 by antero            #+#    #+#             */
-/*   Updated: 2023/05/31 02:20:18 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:11:06 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@
 /* ERROR MESSAGES */
 /* arguments validation errors*/
 # define FEW_ARG "Few Arguments."
+# define NOT_NBR "All arguments should be a number"
 
 #endif

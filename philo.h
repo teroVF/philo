@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/06/02 06:32:08 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:23:09 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,24 @@
 
 typedef struct s_program
 {	
-    t_philo		*philo;
-	int			nbr_philo;
-	__uint64_t	time_die;
-	__uint64_t	time_eat;
-	__uint64_t	time_sleep;
-	__uint64_t	start;
-	__uint64_t	starve;
-	bool		meals;
-	pthread_mutex_t mutex_fork;
+    t_philo			**philo;
+	int				nbr_philo;
+	__uint64_t		time_die;
+	__uint64_t		time_eat;
+	__uint64_t		time_sleep;
+	__uint64_t		start;
+	__uint64_t		starve;
+	int				meals;
+	pthread_mutex_t *mutex_fork;
 }				t_program;
 
 typedef struct	s_philo
 {
-	pthread_t	thread; //nome
-    int		pos;
-	bool	even;
-	int		numb_meals;
+	pthread_t	thread;
+    int			pos;
+	bool		even;	int			numb_meals;
 	__uint64_t	last_meal;
-	t_philo next;
-	t_philo previous;
+	t_program	*program;
 }				t_philo;
 
 void    ft_usleep(__uint64_t up);
