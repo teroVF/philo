@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/06/06 19:23:09 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/06/08 02:49:42 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,20 @@
 # include <sys/time.h>
 # include "error_msg.h"
 
+
+typedef struct	s_philo
+{
+	pthread_t			thread;
+	int					pos;
+	bool				even;
+	int					numb_meals;
+	__uint64_t			last_meal;
+	struct s_program	*program;
+}				t_philo;
+
 typedef struct s_program
 {	
-    t_philo			**philo;
+	t_philo			**philo;
 	int				nbr_philo;
 	__uint64_t		time_die;
 	__uint64_t		time_eat;
@@ -31,18 +42,11 @@ typedef struct s_program
 	__uint64_t		starve;
 	int				meals;
 	pthread_mutex_t *mutex_fork;
+	pthread_mutex_t mutex_cronos;
 }				t_program;
 
-typedef struct	s_philo
-{
-	pthread_t	thread;
-    int			pos;
-	bool		even;	int			numb_meals;
-	__uint64_t	last_meal;
-	t_program	*program;
-}				t_philo;
-
-void    ft_usleep(__uint64_t up);
-long	ft_atoi(const char *str);
+// void    ft_usleep(__int64_t mi_s);
+__uint64_t	ft_atoi(const char *str);
+void    ft_putendl_fd(char *s, int fd);
 
 #endif

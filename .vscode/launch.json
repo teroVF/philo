@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/nfs/homes/anvieira/Desktop/Ccore/philo_res",
-      "program": "/nfs/homes/anvieira/Desktop/Ccore/philo_res/build/Debug/outDebug",
+      "cwd": "/nfs/homes/anvieira/Desktop/Ccore/philo",
+      "program": "/nfs/homes/anvieira/Desktop/Ccore/philo/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

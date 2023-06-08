@@ -6,7 +6,7 @@ CC = cc
 SRC_PATH = src/
 OBJ_PATH = obj/
 bonus_PATH = bonus/
-CFLAGS = -Wall -Werror -Wextra -pthread -g -O3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -pthread -g -O3 -fsanitize=thread
 INCLUDES = push_swap.h
 RM = rm -fr
 
