@@ -6,7 +6,9 @@ CC = cc
 SRC_PATH = src/
 OBJ_PATH = obj/
 bonus_PATH = bonus/
-CFLAGS = -Wall -Werror -Wextra -pthread -g -O3 -fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra -pthread
+DEBUG = -g3 -fsanitize=thread -fsanitize=address
+PERFORMANCE = -Ofast -march=native -flto -funroll-loops
 INCLUDES = push_swap.h
 RM = rm -fr
 
@@ -41,12 +43,13 @@ all: $(NAME)
 #MANDATORY
 $(NAME):	$(PHILO_OBJ)
 			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
-			@$(CC) $(CFLAGS) $(PHILO_OBJ) -o $@
+			@$(CC) $(CFLAGS) $(DEBUG) $(PHILO_OBJ) -o $@
 
 %.o:		%.c
 			@echo "$(YELLOW) Compiling: $< $(DEF_COLOR)"
 			@$(CC) $(CFLAGS) -c $< -o $@
 
+#BONUS
 bonus:		$(OBJ_BONUS)
 			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
 			@$(CC) $(CFLAGS) $(OBJ_BONUS) -o $(BONUS)
