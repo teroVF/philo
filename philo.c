@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/06/09 13:42:13 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/02 16:34:47 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	error_msg(char *error_msg)
 {
 	ft_putendl_fd(error_msg, STDERR_FILENO);
+	if (ft_str)
 	//free
 	exit(EXIT_FAILURE);
 }
