@@ -6,11 +6,11 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:41:02 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/02 16:49:27 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:09:27 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 static int if_is_a_number(char *str)
 {

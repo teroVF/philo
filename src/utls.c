@@ -6,11 +6,11 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:22:54 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/02 16:35:43 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:09:17 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 __uint64_t	ft_atoi( const char *str)
 {
@@ -39,12 +39,22 @@ __uint64_t	ft_atoi( const char *str)
 	return (num * sinal);
 }
 
-void    ft_putchar_fd(char c, int fd)
+int ft_strlen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+void	ft_putchar_fd(char c, int fd)
 {
         write(fd, &c, 1);
 }
 
-void    ft_putendl_fd(char *s, int fd)
+void	ft_putendl_fd(char *s, int fd)
 {
         if (!s)
                 return ;

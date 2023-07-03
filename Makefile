@@ -7,24 +7,20 @@ SRC_PATH = src/
 OBJ_PATH = obj/
 bonus_PATH = bonus/
 CFLAGS = -Wall -Werror -Wextra -pthread
-DEBUG = -g3 -fsanitize=thread -fsanitize=address
+DEBUG = -g3 -fsanitize=address
+DEBUG_T = -g3 -fsanitize=thread
 PERFORMANCE = -Ofast -march=native -flto -funroll-loops
-INCLUDES = push_swap.h
 RM = rm -fr
 
 #Sources
-FILES        =     	main
+FILES        =     	main validate utls
 
 # BONUS_FILES	=		
 
-PS_SRC = $(addsuffix .c, $(FILES))
-PS_OBJ = $(addsuffix .o, $(FILES))
-PS_SRC_BONUS = $(addsuffix .c, $(BONUS_FILES))
-PS_OBJ_BONUS = $(addsuffix .o, $(BONUS_FILES))
-SRC_BONUS = $(addprefix $(CHECKER_PATH), $(PS_SRC_BONUS))
-OBJ_BONUS = $(addprefix $(CHECKER_PATH), $(PS_OBJ_BONUS))
+PHILO_SRC = $(addprefix src/, $(addsuffix .c, $(FILES)))
+PHILO_OBJ = $(addprefix obj/, $(addsuffix .o, $(FILES)))
 OBJS =	$(addprefix $(OBJ_PATH), $(OBJ))
-INCS = -I.
+INCS = -I ../includes
 
 #Colors
 
@@ -43,18 +39,19 @@ all: $(NAME)
 #MANDATORY
 $(NAME):	$(PHILO_OBJ)
 			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
-			@$(CC) $(CFLAGS) $(DEBUG) $(PHILO_OBJ) -o $@
+			@$(CC) $(INCS) $(CFLAGS) $(DEBUG) $(PHILO_OBJ) -o $@
 
-%.o:		%.c
+$(OBJ_PATH)%.o:		$(SRC_PATH)%.c
+			@mkdir -p $(OBJ_PATH)
 			@echo "$(YELLOW) Compiling: $< $(DEF_COLOR)"
-			@$(CC) $(CFLAGS) -c $< -o $@
+			@$(CC) $(INCS) $(CFLAGS) -c $< -o $@
 
 #BONUS
-bonus:		$(OBJ_BONUS)
-			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
-			@$(CC) $(CFLAGS) $(OBJ_BONUS) -o $(BONUS)
+# bonus:		$(OBJ_BONUS)
+# 			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
+# 			@$(CC) $(CFLAGS) $(OBJ_BONUS) -o $(BONUS)
 clean:
-			@$(RM) *.o
+			@$(RM) $(OBJ_PATH)
 			@echo "$(BLUE)All objects files cleaned!$(DEF_COLOR)"
 
 fclean: 	clean

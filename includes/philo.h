@@ -6,12 +6,13 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/02 16:39:40 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/03 16:15:17 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -45,6 +46,7 @@ typedef struct s_program
 }				t_program;
 
 void		validation(char **argv, int argc);
+void		error_msg(char *error_msg);
 
 /* time */
 void    	ft_usleep(__int64_t mi_s);
@@ -52,10 +54,8 @@ __int64_t   check_time(__int64_t start);
 
 /* utls */
 __uint64_t	ft_atoi(const char *str);
-void    ft_putendl_fd(char *s, int fd);
-void    ft_putstr_fd(char *s, int fd);
-int		ft_strcmp(const char *s1, const char *s2)
-
-
+void    	ft_putendl_fd(char *s, int fd);
+void    	ft_putstr_fd(char *s, int fd);
+int			ft_strcmp(const char *s1, const char *s2);
 
 #endif

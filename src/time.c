@@ -6,11 +6,11 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 22:03:35 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/02 16:38:58 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:09:10 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 static __int64_t    milliseconds(void)
 {
@@ -35,12 +35,3 @@ __int64_t   check_time(__int64_t start)
 	real_time = (milliseconds()) - start;
     return (real_time);
 }
-
-// int 	main(void)
-// {
-// 	__int64_t start = milliseconds();
-// 	ft_usleep(3000000);
-// 	__int64_t how_much = check_time(start);
-// 	printf("%ld\n", how_much);
-// 	return 0;
-// }
