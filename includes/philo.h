@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/04 14:16:48 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:54:40 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <sys/time.h>
 # include "error_msg.h"
 
-
 typedef struct	s_philo
 {
 	pthread_t			*tid;
@@ -34,7 +33,6 @@ typedef struct	s_philo
 
 typedef struct s_program
 {	
-	// pthread_t		*tid;
 	t_philo			**philo;
 	int				nbr_philo;
 	__uint64_t		time_die;
