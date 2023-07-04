@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/04 15:17:17 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:33:25 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ void	simulation_init(t_program *program, char **argv, int argc)
 		n++;
 	}
 	program->mutex_fork = malloc(sizeof(pthread_mutex_t) * program->nbr_philo);
-	mutex_init(program);	
 	program->philo[n] = NULL;
+	mutex_init(program);	
 }
