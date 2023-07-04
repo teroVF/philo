@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/04 16:54:40 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:49:46 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@
 # include <stdbool.h>
 # include <pthread.h>
 # include <sys/time.h>
-# include "error_msg.h"
+# include "log_msg.h"
 
 typedef struct	s_philo
 {
 	pthread_t			*tid;
-	int					pos;
+	int					id;
+	int					sit;
 	bool				even;
 	int					numb_meals;
 	__uint64_t			last_meal;

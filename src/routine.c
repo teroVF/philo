@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:23:05 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/04 16:10:01 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:19:44 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ void    sleeping(t_philo *philo)
 
 void    pick_fork(t_philo *philo, int pos)
 {
-    pthread_mutex_lock(&philo->program->mutex_fork[pos -1]);
+    pthread_mutex_lock(&philo->program->mutex_fork[pos]);
     pthread_mutex_lock(&philo->program->write);
     printf("%lu, the philo n %d is picking fork left...\n", check_time(philo->program->start) , philo->pos);
     pthread_mutex_unlock(&philo->program->write);
     if (pos == philo->program->nbr_philo -1)
         pthread_mutex_lock(&philo->program->mutex_fork[0]);
     else
-        pthread_mutex_lock(&philo->program->mutex_fork[pos]);
+        pthread_mutex_lock(&philo->program->mutex_fork[pos +1]);
     pthread_mutex_lock(&philo->program->write);
     printf("%lu, the philo n %d is picking fork right...\n", check_time(philo->program->start) , philo->pos);
     pthread_mutex_unlock(&philo->program->write);
@@ -48,14 +48,14 @@ void    pick_fork(t_philo *philo, int pos)
 
 void    left_fork(t_philo *philo, int pos)
 {
-    pthread_mutex_unlock(&philo->program->mutex_fork[pos -1]);
+    pthread_mutex_unlock(&philo->program->mutex_fork[pos]);
     pthread_mutex_lock(&philo->program->write);
     printf("%lu, the philo n %d left fork left...\n", check_time(philo->program->start) , philo->pos);
     pthread_mutex_unlock(&philo->program->write);
     if (pos == philo->program->nbr_philo -1)
         pthread_mutex_unlock(&philo->program->mutex_fork[0]);
     else
-        pthread_mutex_unlock(&philo->program->mutex_fork[pos]);
+        pthread_mutex_unlock(&philo->program->mutex_fork[pos + 1]);
     pthread_mutex_lock(&philo->program->write);
     printf("%lu, the philo n %d left fork right...\n", check_time(philo->program->start) , philo->pos);
     pthread_mutex_unlock(&philo->program->write);

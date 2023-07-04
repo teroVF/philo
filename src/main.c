@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/04 05:47:15 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:35:36 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ int 	check_meals(t_philo *philo)
 
 	i = 0;
 	if (philo->program->meals == -1)
+	{	
+		printf("entrou\n");
 		return (0);
+	}
+	// printf("numbr_meals: philo n:%d, meals %d\n", philo->pos, philo->numb_meals);
 	while (i < philo->program->nbr_philo)
 	{
 		if (philo->program->philo[i]->numb_meals < philo->program->meals)
@@ -60,7 +64,6 @@ void wait_and_check(t_philo **philo)
 		// 	break ;
 		if (check_meals(*philo) == 1)
 			break ;
-		printf("numb_meals: %d\n", philo[0]->numb_meals);
 	}
 }
 
@@ -71,7 +74,9 @@ static void	simulation(t_philo **philo)
 	n = 0;
 	while (n < philo[0]->program->nbr_philo)
 	{
+		printf("philo %d\n", philo[n]->pos);
 		pthread_create(philo[n]->tid, NULL, &routine, philo[n]);
+		ft_usleep(1000);
 		n++;
 	}
 	// for (int i = 0; i < philo[0]->program->nbr_philo; i++)
