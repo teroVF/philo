@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/04 14:21:42 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:17:17 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_philo	*philo_init(t_program *program, int n)
 	t_philo *philo;
 	
 	philo = malloc(sizeof(t_philo));
-	philo->pos = n + 1;
+	philo->pos = n;
 	philo->even = ((n + 1) % 2 == 0) ? 1 : 0;
 	philo->last_meal = 0;
 	philo->program = program;
