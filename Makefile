@@ -13,7 +13,7 @@ PERFORMANCE = -Ofast -march=native -flto -funroll-loops
 RM = rm -fr
 
 #Sources
-FILES        =     	main validate utls
+FILES        =     	main validate utls philo time routine
 
 # BONUS_FILES	=		
 

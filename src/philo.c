@@ -6,72 +6,62 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/03 17:08:46 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/04 14:21:42 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	error_msg(char *error_msg)
+void mutex_init(t_program *program)
 {
-	ft_putendl_fd(error_msg, STDERR_FILENO);
-	if (ft_strcmp(error_msg, FEW_ARG) == 0)
-		ft_putstr_fd("Usage: ./philo number_of_philo", STDERR_FILENO);
-		ft_putstr_fd("time_to_die time_to_eat time_to_sleep [number eats]\n", STDERR_FILENO);
-	//free
-	exit(EXIT_FAILURE);
+	int n;
+
+	n = 0;
+	while (n < program->nbr_philo)
+	{
+		pthread_mutex_init(&program->mutex_fork[n], NULL);
+		n++;
+	}
+	pthread_mutex_init(&program->write, NULL);
 }
 
 t_philo	*philo_init(t_program *program, int n)
 {
-	t_philo *socrates;
+	t_philo *philo;
 	
-	socrates = malloc(sizeof(t_philo) * 1);
-	socrates->pos = n + 1;
-	socrates->even = ((n + 1) % 2 == 0) ? 1 : 0;
-	socrates->last_meal = 0;
-	socrates->program = program;
-	return (socrates);	
+	philo = malloc(sizeof(t_philo));
+	philo->pos = n + 1;
+	philo->even = ((n + 1) % 2 == 0) ? 1 : 0;
+	philo->last_meal = 0;
+	philo->program = program;
+	philo->tid = malloc(sizeof(pthread_t));
+	if (program->meals != -1)
+		philo->numb_meals = 0;
+	else
+		philo->numb_meals = -1;
+	return (philo);	
 }
 
-// void	*simulation_init(t_program *program, char **argv, int argc)
-// {
-// 	int		n;
+void	simulation_init(t_program *program, char **argv, int argc)
+{
+	int		n;
 
-// 	n = 0;
-// 	program->nbr_philo = (int) ft_atoi(argv[1]);
-// 	program->time_die = ft_atoi(argv[2]);
-// 	program->time_eat = ft_atoi(argv[3]);
-// 	program->time_sleep = ft_atoi(argv[4]);
-// 	program->meals = -1;
-// 	if (argc == 6)
-// 		program->meals = ft_atoi(argv[5]);
-// 	if (program->nbr_philo <= 0 || program->time_eat < 0 || program->time_die < 0
-// 		|| program->time_sleep < 0)
-// 			error_msg("too low");
-// 	program->tid = malloc(sizeof(pthread_t) * program->nbr_philo);
-// 	if (program->tid != NULL)
-// 		error_msg("");
-// 	program->philo = malloc(sizeof(t_philo) * program->nbr_philo);
-// 	if (program->tid != NULL)
-// 		error_msg("");
-// 	program->mutex_fork = malloc(sizeof(pthread_mutex_t) * program->nbr_philo);
-// 	if (program->tid != NULL)
-// 		error_msg("");
-	
-// 	// program->philo = malloc(sizeof(t_philo *) * program->nbr_philo);
-// 	// program->mutex_fork = malloc(sizeof(pthread_mutex_t) * program->nbr_philo);
-// 	// while (n < program->nbr_philo)
-// 	// {
-// 	// 	pthread_mutex_init(program->mutex_fork, NULL);
-// 	// 	program->mutex_fork++;
-// 	// 	n++;
-// 	// }
-// 	// n = 0;
-// 	// while (n < program->nbr_philo)
-// 	// {
-// 	// 	program->philo[n] = philo_init(program, n);
-// 	// 	n++;
-// 	// }
-// 	// return (program);
-// }
+	n = 0;
+	program->nbr_philo = (int)ft_atoi(argv[1]);
+	program->time_die = ft_atoi(argv[2]);
+	program->time_eat = ft_atoi(argv[3]);
+	program->time_sleep = ft_atoi(argv[4]);
+	program->meals = -1;
+	program->start = check_time(0);
+	if (argc == 6)
+		program->meals = (int) ft_atoi(argv[5]);
+	program->philo = malloc(sizeof(t_philo *) * program->nbr_philo + 1);
+	while (n < program->nbr_philo)
+	{
+		program->philo[n] = philo_init(program, n);
+		n++;
+	}
+	program->mutex_fork = malloc(sizeof(pthread_mutex_t) * program->nbr_philo);
+	mutex_init(program);	
+	program->philo[n] = NULL;
+}

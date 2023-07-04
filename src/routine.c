@@ -6,50 +6,60 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:23:05 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/03 17:09:04 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/04 14:24:30 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void    pick_forks(t_philo *philo)
+void    eating(t_philo *philo)
 {
-    pthread_mutex_lock();
-    printf("%llu: the philo pick the fork\n", time, philo->pos);
-}
-
-void eating(t_philo *philo)
-{
-    /* pegar nos dois garfos
-    e depois eh que come! */
-    pick_forks();
-    pick_forks();
-    printf("%llu: the philo n %d is eating...\n", time, philo->pos);
-    ft_usleep(philo->program->time_eat);
-    printf("%llu: the philo n %d drop the fork...\n", time, philo->pos);
-    if (philo->program->meals == 1)
-        philo->numb_meals--;
-    pthread_mutex_unlock();
-    printf("%llu: the philo n %d drop the fork...\n", time, philo->pos);
-    pthread_mutex_unlock();
-    if(philo->numb_meals == 0)
-    {
-        printf("the philo n %d finish his routine");
-        exit(0);
-    }
-    /* desbloquear mutex */
+    philo->last_meal = check_time(philo->program->start);
+    philo->numb_meals++;
+    pthread_mutex_lock(&philo->program->write);
+    printf("%lu, the philo n %d is eating...\n", check_time(philo->program->start) , philo->pos);
+    pthread_mutex_unlock(&philo->program->write);
+    ft_usleep(philo->program->time_eat * 1000);
 }
 
 void    sleeping(t_philo *philo)
 {
-    ft_usleep(philo->program->time_sleep);
-    printf("%llu: the philo n %d is sleeping...\n", time, philo->pos);
+    pthread_mutex_lock(&philo->program->write);
+    printf("%lu, the philo n %d is sleeping...\n", check_time(philo->program->start) , philo->pos);
+    pthread_mutex_unlock(&philo->program->write);
+    ft_usleep(philo->program->time_sleep * 1000);
 }
 
-void    *routine(t_philo *philo)
+void    pick_fork(t_philo *philo, int pos)
 {
-    void eating(philo);
-    void sleeping(philo);
-    printf("%llu: the philo n %d is thinking...\n", time, philo->pos);
-    return NULL;
+    pthread_mutex_lock(&philo->program->mutex_fork[pos]);
+    printf("%lu, the philo n %d is picking fork left...\n", check_time(philo->program->start) , philo->pos);
+    pthread_mutex_lock(&philo->program->mutex_fork[pos + 1]);
+    printf("%lu, the philo n %d is picking fork right...\n", check_time(philo->program->start) , philo->pos);
+}
+
+void    left_fork(t_philo *philo, int pos)
+{
+    pthread_mutex_unlock(&philo->program->mutex_fork[pos]);
+    printf("%lu, the philo n %d left fork left...\n", check_time(philo->program->start) , philo->pos);
+    pthread_mutex_unlock(&philo->program->mutex_fork[pos + 1]);
+    printf("%lu, the philo n %d left fork right...\n", check_time(philo->program->start) , philo->pos);
+}
+
+void    *routine(void *pointer)
+{
+    t_philo *philo;
+
+    philo = (t_philo *) pointer;
+    while (1)
+    {
+        pick_fork(philo, philo->pos);
+        eating(philo);
+        left_fork(philo, philo->pos);
+        sleeping(philo);
+        pthread_mutex_lock(&philo->program->write);
+        printf("%lu, the philo n %d is thinking...\n", check_time(philo->program->start) , philo->pos);
+        pthread_mutex_unlock(&philo->program->write);
+    }
+    return (NULL);
 }
