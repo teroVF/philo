@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/04 18:35:36 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/09 02:43:04 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	simulation(t_philo **philo)
 	n = 0;
 	while (n < philo[0]->program->nbr_philo)
 	{
-		printf("philo %d\n", philo[n]->pos);
+		printf("philo %d\n", philo[n]->sit);
 		pthread_create(philo[n]->tid, NULL, &routine, philo[n]);
 		ft_usleep(1000);
 		n++;
