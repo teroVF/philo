@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:23:05 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/09 02:11:36 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/09 05:09:01 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ void    eating(t_philo *philo)
     if (philo->program->meals != -1)
         philo->numb_meals++;
     pthread_mutex_lock(&philo->program->write);
-    printf("the philo n %d already ate %d times\n",philo->sit, philo->numb_meals);
-    pthread_mutex_unlock(&philo->program->write);
-    pthread_mutex_lock(&philo->program->write);
     printf("%lu, the philo n %d is eating...\n", check_time(philo->program->start) , philo->sit);
+    printf("the philo n %d already ate %d times\n",philo->sit, philo->numb_meals);
     pthread_mutex_unlock(&philo->program->write);
     ft_usleep(philo->program->time_eat * 1000);
 }
@@ -40,7 +38,7 @@ void    pick_fork(t_philo *philo, int sit)
     pthread_mutex_lock(&philo->program->write);
     printf("%lu, the philo n %d is picking fork left...\n", check_time(philo->program->start) , philo->sit);
     pthread_mutex_unlock(&philo->program->write);
-    if (sit == philo->program->nbr_philo -1)
+    if (sit == philo->program->nbr_philo)
         pthread_mutex_lock(&philo->program->mutex_fork[0]);
     else
         pthread_mutex_lock(&philo->program->mutex_fork[sit]);
@@ -55,7 +53,7 @@ void    left_fork(t_philo *philo, int sit)
     printf("%lu, the philo n %d left fork left...\n", check_time(philo->program->start) , philo->sit);
     pthread_mutex_unlock(&philo->program->write);
     pthread_mutex_unlock(&philo->program->mutex_fork[sit - 1]);
-    if (sit == philo->program->nbr_philo -1)
+    if (sit == philo->program->nbr_philo)
         pthread_mutex_unlock(&philo->program->mutex_fork[0]);
     else
         pthread_mutex_unlock(&philo->program->mutex_fork[sit]);
@@ -71,8 +69,12 @@ void    *routine(void *pointer)
     philo = (t_philo *) pointer;
     while (1)
     {
+        if (philo->program->meals != -1 && philo->numb_meals == philo->program->meals)
+            break ;
         pick_fork(philo, philo->sit);
+        pthread_mutex_lock(&philo->program->eat);
         eating(philo);
+        pthread_mutex_unlock(&philo->program->eat);
         left_fork(philo, philo->sit);
         sleeping(philo);
         pthread_mutex_lock(&philo->program->write);

@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/09 01:54:19 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/09 02:55:44 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void mutex_init(t_program *program)
 		n++;
 	}
 	pthread_mutex_init(&program->write, NULL);
+	pthread_mutex_init(&program->eat, NULL);
 }
 
 t_philo	*philo_init(t_program *program, int n)

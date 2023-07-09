@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/09 02:43:04 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/09 05:20:38 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,20 @@ void	error_msg(char *error_msg)
 	}
 	//free
 	exit(EXIT_FAILURE);
+}
+
+void	free_mutex(t_philo **philo)
+{
+	int	i;
+
+	i = -1;
+	while (++i < philo[0]->program->nbr_philo)
+	{
+		pthread_mutex_destroy(&philo[0]->program->mutex_fork[i]);
+		free((void) philo[0]->program->mutex_fork[i]);
+	}
+	pthread_mutex_destroy(&philo[0]->program->write);
+	pthread_mutex_destroy(&philo[0]->program->eat);
 }
 
 int 	check_meals(t_philo *philo)
@@ -79,12 +93,12 @@ static void	simulation(t_philo **philo)
 		ft_usleep(1000);
 		n++;
 	}
-	// for (int i = 0; i < philo[0]->program->nbr_philo; i++)
-    // {
-    //     pthread_join(*philo[i]->tid, NULL);
-    // }
-	wait_and_check(philo);
-	stop_threads(philo);
+	for (int i = 0; i < philo[0]->program->nbr_philo; i++)
+    {
+        pthread_join(*philo[i]->tid, NULL);
+    }
+	// wait_and_check(philo);
+	// stop_threads(philo);
 }
 
 int main(int ac, char *av[])
@@ -98,5 +112,5 @@ int main(int ac, char *av[])
 	simulation_init(&program, av, ac);
 	philo = program.philo;
 	simulation(philo);
-	//free a tudo
+	free_mutex(philo);
 }
