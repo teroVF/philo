@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:23:05 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/09 05:09:01 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/10 02:10:38 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void    *routine(void *pointer)
     while (1)
     {
         if (philo->program->meals != -1 && philo->numb_meals == philo->program->meals)
+            break ;
+        if (philo->program->dead == 1)
             break ;
         pick_fork(philo, philo->sit);
         pthread_mutex_lock(&philo->program->eat);

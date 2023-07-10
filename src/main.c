@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/09 05:20:38 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/10 02:12:39 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,10 @@ void	free_mutex(t_philo **philo)
 	while (++i < philo[0]->program->nbr_philo)
 	{
 		pthread_mutex_destroy(&philo[0]->program->mutex_fork[i]);
-		free((void) philo[0]->program->mutex_fork[i]);
+		free(&philo[0]->program->mutex_fork[i]);
 	}
 	pthread_mutex_destroy(&philo[0]->program->write);
 	pthread_mutex_destroy(&philo[0]->program->eat);
-}
-
-int 	check_meals(t_philo *philo)
-{
-	int i;
-
-	i = 0;
-	if (philo->program->meals == -1)
-	{	
-		printf("entrou\n");
-		return (0);
-	}
-	// printf("numbr_meals: philo n:%d, meals %d\n", philo->pos, philo->numb_meals);
-	while (i < philo->program->nbr_philo)
-	{
-		if (philo->program->philo[i]->numb_meals < philo->program->meals)
-			return (0);
-		i++;
-	}
-	return (1);
 }
 
 void stop_threads(t_philo **philo)
@@ -69,15 +49,35 @@ void stop_threads(t_philo **philo)
 		i++;
 	}
 }
+int check_death(t_philo **philo, int i)
+{
+	__uint64_t limite;
+	__uint64_t time;
 
+	limite = philo[i]->last_meal + philo[i]->program->time_die;
+	time = check_time(philo[0]->program->start);
+	if (time > limite + 10)
+	{
+		pthread_mutex_lock(&philo[i]->program->write);
+		printf("%lu %d died\n", time, philo[i]->sit);
+		pthread_mutex_unlock(&philo[i]->program->write);
+		philo[i]->program->dead = true;
+		return (1);
+	}
+	return (0);
+}
 void wait_and_check(t_philo **philo)
 {
+	int i;
+	
+	i = 0;
 	while (1)
 	{
-		// if(check_death(philo) == 1)
-		// 	break ;
-		if (check_meals(*philo) == 1)
+		if(check_death(philo, i) == 1)
 			break ;
+		i++;
+		if (i == philo[0]->program->nbr_philo)
+			i = 0;
 	}
 }
 
@@ -93,12 +93,12 @@ static void	simulation(t_philo **philo)
 		ft_usleep(1000);
 		n++;
 	}
-	for (int i = 0; i < philo[0]->program->nbr_philo; i++)
-    {
-        pthread_join(*philo[i]->tid, NULL);
-    }
-	// wait_and_check(philo);
-	// stop_threads(philo);
+	// for (int i = 0; i < philo[0]->program->nbr_philo; i++)
+    // {
+    //     pthread_join(*philo[i]->tid, NULL);
+    // }
+	wait_and_check(philo);
+	stop_threads(philo);
 }
 
 int main(int ac, char *av[])
@@ -112,5 +112,5 @@ int main(int ac, char *av[])
 	simulation_init(&program, av, ac);
 	philo = program.philo;
 	simulation(philo);
-	free_mutex(philo);
+	// free_mutex(philo);
 }

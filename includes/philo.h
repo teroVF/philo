@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/09 02:53:47 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/10 02:05:37 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 typedef struct	s_philo
 {
 	pthread_t			*tid;
-	int					id;
 	int					sit;
 	bool				even;
 	int					numb_meals;
@@ -41,6 +40,7 @@ typedef struct s_program
 	__uint64_t		time_sleep;
 	__uint64_t		start;
 	int				meals;
+	bool			dead;
 	pthread_mutex_t	*mutex_fork;
 	pthread_mutex_t	write;
 	pthread_mutex_t	eat;
