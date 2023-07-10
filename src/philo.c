@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/10 02:05:57 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/10 03:21:55 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void mutex_init(t_program *program)
 		n++;
 	}
 	pthread_mutex_init(&program->write, NULL);
-	pthread_mutex_init(&program->eat, NULL);
 }
 
 t_philo	*philo_init(t_program *program, int n)
@@ -34,6 +33,7 @@ t_philo	*philo_init(t_program *program, int n)
 	philo->sit = n + 1;
 	philo->even = ((n + 1) % 2 == 0) ? 1 : 0;
 	philo->last_meal = 0;
+	philo->is_full = 0;
 	philo->program = program;
 	philo->tid = malloc(sizeof(pthread_t));
 	if (program->meals != -1)
@@ -52,7 +52,6 @@ void	simulation_init(t_program *program, char **argv, int argc)
 	program->time_die = ft_atoi(argv[2]);
 	program->time_eat = ft_atoi(argv[3]);
 	program->time_sleep = ft_atoi(argv[4]);
-	program->dead = false;
 	program->meals = -1;
 	program->start = check_time(0);
 	if (argc == 6)
