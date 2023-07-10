@@ -1,7 +1,6 @@
 {
   "version": "0.2.0",
   "configurations": [
-    
     {
       "name": "(gdb) Launch",
       "type": "cppdbg",
@@ -44,8 +43,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/antero/Desktop/42/philo",
-      "program": "/home/antero/Desktop/42/philo/build/Debug/outDebug",
+      "cwd": "/nfs/homes/anvieira/Desktop/Ccore/philo",
+      "program": "/nfs/homes/anvieira/Desktop/Ccore/philo/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

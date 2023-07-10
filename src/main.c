@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/10 03:23:35 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:23:02 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,12 @@ int check_is_full(t_philo **philo, int i)
 {
 	static int count = 0;
 	
-	if (philo[i]->numb_meals == philo[0]->program->meals && philo[i]->is_full == 0)
+	if (philo[i]->numb_meals == philo[0]->program->meals 
+		&& philo[i]->is_full == 0)
 	{
 		pthread_mutex_lock(&philo[i]->program->write);
-		printf("%lu %d is full\n", check_time(philo[0]->program->start), philo[i]->sit);
+		printf("%lu %d is full\n", check_time(philo[0]->program->start),
+			philo[i]->sit);
 		pthread_mutex_unlock(&philo[i]->program->write);
 		count++;
 		philo[i]->is_full = 1;
