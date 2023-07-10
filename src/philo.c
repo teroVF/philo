@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/10 03:21:55 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:50:38 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,5 @@ void	simulation_init(t_program *program, char **argv, int argc)
 	}
 	program->philo[n] = NULL;
 	program->mutex_fork = malloc(sizeof(pthread_mutex_t) * program->nbr_philo);
-	mutex_init(program);	
+	mutex_init(program);
 }

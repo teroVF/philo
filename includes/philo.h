@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/10 03:22:30 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/10 20:04:45 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct	s_philo
 	pthread_t			*tid;
 	int					sit;
 	int					numb_meals;
-	bool					is_full;
+	bool				is_full;
 	bool				even;
 	__uint64_t			last_meal;
 	struct s_program	*program;
