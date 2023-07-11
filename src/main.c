@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/10 17:23:02 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/11 02:37:14 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,17 +109,39 @@ static void	simulation(t_philo **philo)
 	
 	flag = 0;
 	n = 0;
-	while (n < philo[0]->program->nbr_philo)
+	printf("philo %d\n", philo[0]->program->nbr_philo);
+	if (!(philo[0]->program->nbr_philo % 2))
 	{
-		printf("philo %d\n", philo[n]->sit);
-		pthread_create(philo[n]->tid, NULL, &routine, philo[n]);
-		if (!(philo[0]->program->nbr_philo % 2))
-			n +=2;
-		if (n == philo[0]->program->nbr_philo && flag == 0)
+		while (n < philo[0]->program->nbr_philo)
 		{
-			n = 1;
-			flag = 1;
+			printf("philo %d\n", philo[n]->sit);
+			pthread_create(philo[n]->tid, NULL, &routine, philo[n]);
+			if (!(philo[0]->program->nbr_philo % 2))
+				n +=2;
+			if (n == philo[0]->program->nbr_philo && flag == 0)
+			{
+				n = 1;
+				flag = 1;
+			}
 		}
+	}
+	else
+	{
+		while (n < philo[0]->program->nbr_philo - 1)
+		{
+			printf("philo %d\n", philo[n]->sit);
+			pthread_create(philo[n]->tid, NULL, &routine, philo[n]);
+			if ((philo[0]->program->nbr_philo % 2))
+				n +=2;
+			if (n == philo[0]->program->nbr_philo - 1 && flag == 0)
+			{
+				n = 1;
+				flag = 1;
+			}
+		}
+		printf("philo %d\n", philo[philo[0]->program->nbr_philo -1]->sit);
+		pthread_create(philo[philo[0]->program->nbr_philo -1]->tid, NULL, &routine, philo[philo[0]->program->nbr_philo -1]);
+		
 	}
 	// for (int i = 0; i < philo[0]->program->nbr_philo; i++)
     // {
