@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/10 20:04:45 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/12 20:17:54 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ typedef struct s_program
 	__uint64_t		start;
 	int				meals;
 	pthread_mutex_t	*mutex_fork;
-	pthread_mutex_t	write;
+	pthread_mutex_t	*dead;
+	int				someone_dead;
 }				t_program;
 
 void		simulation_init(t_program *program, char **argv, int argc);

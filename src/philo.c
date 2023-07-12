@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/10 17:50:38 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/12 19:14:23 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void mutex_init(t_program *program)
 		pthread_mutex_init(&program->mutex_fork[n], NULL);
 		n++;
 	}
-	pthread_mutex_init(&program->write, NULL);
+	program->dead = malloc(sizeof(pthread_mutex_t));
+	// pthread_mutex_init(program->dead, NULL);
 }
 
 t_philo	*philo_init(t_program *program, int n)
@@ -54,6 +55,7 @@ void	simulation_init(t_program *program, char **argv, int argc)
 	program->time_sleep = ft_atoi(argv[4]);
 	program->meals = -1;
 	program->start = check_time(0);
+	program->someone_dead = 0;
 	if (argc == 6)
 		program->meals = (int) ft_atoi(argv[5]);
 	program->philo = malloc(sizeof(t_philo *) * program->nbr_philo + 1);
