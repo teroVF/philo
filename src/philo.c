@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/12 19:14:23 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:05:41 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void mutex_init(t_program *program)
 	int n;
 
 	n = 0;
+	program->mutex_fork = malloc(sizeof(pthread_mutex_t) * program->nbr_philo);
 	while (n < program->nbr_philo)
 	{
 		pthread_mutex_init(&program->mutex_fork[n], NULL);
@@ -31,12 +32,12 @@ t_philo	*philo_init(t_program *program, int n)
 	t_philo *philo;
 	
 	philo = malloc(sizeof(t_philo));
+	philo->tid = malloc(sizeof(pthread_t));
 	philo->sit = n + 1;
 	philo->even = ((n + 1) % 2 == 0) ? 1 : 0;
 	philo->last_meal = 0;
 	philo->is_full = 0;
 	philo->program = program;
-	philo->tid = malloc(sizeof(pthread_t));
 	if (program->meals != -1)
 		philo->numb_meals = 0;
 	else
@@ -65,6 +66,5 @@ void	simulation_init(t_program *program, char **argv, int argc)
 		n++;
 	}
 	program->philo[n] = NULL;
-	program->mutex_fork = malloc(sizeof(pthread_mutex_t) * program->nbr_philo);
 	mutex_init(program);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:23:05 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/12 19:22:07 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:59:53 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void    pick_fork(t_philo *philo, int sit)
 {
     printf("%d\n", philo->sit);
     printf("nbr_philo: %d\n", philo->program->nbr_philo);
-    if (philo->sit == philo->program->nbr_philo)
+    if (philo->sit == philo->program->nbr_philo && philo->program->nbr_philo % 2)
     {
         pthread_mutex_lock(&philo->program->mutex_fork[0]);
         printf("%lu, the philo n %d is picking fork right...\n", check_time(philo->program->start) , philo->sit);
@@ -46,18 +46,17 @@ void    pick_fork(t_philo *philo, int sit)
     {
         pthread_mutex_lock(&philo->program->mutex_fork[sit - 1]);
         printf("%lu, the philo n %d is picking fork left...\n", check_time(philo->program->start) , philo->sit);
-        pthread_mutex_lock(&philo->program->mutex_fork[sit]);
-        // pthread_mutex_lock(&philo->program->write);
-        // pthread_mutex_unlock(&philo->program->write);
-        // pthread_mutex_lock(&philo->program->write);
+        if (sit == philo->program->nbr_philo)
+            pthread_mutex_lock(&philo->program->mutex_fork[0]);
+        else
+            pthread_mutex_lock(&philo->program->mutex_fork[sit]);
         printf("%lu, the philo n %d is picking fork right...\n", check_time(philo->program->start) , philo->sit);
-        // pthread_mutex_unlock(&philo->program->write);
     }
 }
 
 void    left_fork(t_philo *philo, int sit)
 {
-        if (philo->sit == philo->program->nbr_philo)
+        if (philo->sit == philo->program->nbr_philo && philo->program->nbr_philo % 2)
     {
         pthread_mutex_unlock(&philo->program->mutex_fork[0]);
         printf("%lu, the philo n %d is picking fork left...\n", check_time(philo->program->start) , philo->sit);

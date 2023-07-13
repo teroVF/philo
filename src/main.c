@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/12 18:52:37 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:03:24 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,9 @@ int check_death(t_philo **philo, int i)
 	time = check_time(philo[0]->program->start);
 	if (time > limite + 10)
 	{
-		// pthread_mutex_lock(&philo[i]->program->write);
 		printf("%lu %d died\n", time - 10, philo[i]->sit);
+		//lock para a dead
 		philo[i]->program->someone_dead = 1;
-		// pthread_mutex_unlock(&philo[i]->program->write);
 		return (1);
 	}
 	return (0);
@@ -73,11 +72,10 @@ int check_is_full(t_philo **philo, int i)
 	if (philo[i]->numb_meals == philo[0]->program->meals 
 		&& philo[i]->is_full == 0)
 	{
-		// pthread_mutex_lock(&philo[i]->program->write);
 		printf("%lu %d is full\n", check_time(philo[0]->program->start),
 			philo[i]->sit);
-		// pthread_mutex_unlock(&philo[i]->program->write);
 		count++;
+		//lock para o full??
 		philo[i]->is_full = 1;
 		if (count == philo[0]->program->nbr_philo)
 			return (1);
@@ -121,27 +119,27 @@ static void	simulation(t_philo **philo)
 			{
 				n = 1;
 				flag = 1;
-				ft_usleep(2000);
+				ft_usleep(philo[0]->program->time_eat);
 			}
 		}
 	}
-	else
-	{
-		while (n < philo[0]->program->nbr_philo - 1)
-		{
-			printf("philo %d\n", philo[n]->sit);
-			pthread_create(philo[n]->tid, NULL, &routine, philo[n]);
-			n += 2;
-			if (n == philo[0]->program->nbr_philo - 1 && flag == 0)
-			{
-				n = 1;
-				flag = 1;
-			}
-		}
-		printf("philo %d\n", philo[philo[0]->program->nbr_philo -1]->sit);
-		pthread_create(philo[philo[0]->program->nbr_philo -1]->tid, NULL, &routine, philo[philo[0]->program->nbr_philo -1]);
+	// else
+	// {
+	// 	while (n < philo[0]->program->nbr_philo - 1)
+	// 	{
+	// 		printf("philo %d\n", philo[n]->sit);
+	// 		pthread_create(philo[n]->tid, NULL, &routine, philo[n]);
+	// 		n += 2;
+	// 		if (n == philo[0]->program->nbr_philo - 1 && flag == 0)
+	// 		{
+	// 			n = 1;
+	// 			flag = 1;
+	// 		}
+	// 	}
+	// 	printf("philo %d\n", philo[philo[0]->program->nbr_philo -1]->sit);
+	// 	pthread_create(philo[philo[0]->program->nbr_philo -1]->tid, NULL, &routine, philo[philo[0]->program->nbr_philo -1]);
 		
-	}
+	// }
 	wait_and_check(philo);
 	stop_threads(philo);
 }
