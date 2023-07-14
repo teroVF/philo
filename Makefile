@@ -50,6 +50,19 @@ $(OBJ_PATH)%.o:		$(SRC_PATH)%.c
 # bonus:		$(OBJ_BONUS)
 # 			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
 # 			@$(CC) $(CFLAGS) $(OBJ_BONUS) -o $(BONUS)
+
+size: 
+			@echo "$(YELLOW)Size of the executable:$(DEF_COLOR)"
+			@wc -c $(NAME) | echo `awk '{print $$1}'` bytes
+
+assemble:
+			@echo "$(YELLOW)Assembling:$(DEF_COLOR)"
+			@objdump -d $(NAME) > $(NAME).s
+
+assemble_s:
+			@echo "$(YELLOW)Assembling:$(DEF_COLOR)"
+			@objdump -d $(NAME) | wc -l
+
 clean:
 			@$(RM) $(OBJ_PATH)
 			@echo "$(BLUE)All objects files cleaned!$(DEF_COLOR)"

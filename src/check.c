@@ -18,17 +18,13 @@ static int check_death(t_philo **philo, int i)
 	__uint64_t time;
 
 	limite = philo[i]->last_meal + philo[i]->program->time_die;
-	pthread_mutex_lock(philo[i]->program->time);
 	time = check_time(philo[0]->program->start);
-	pthread_mutex_unlock(philo[i]->program->time);
 	if (time > limite + 10)
 	{
 		pthread_mutex_lock(philo[i]->program->dead);
 		philo[i]->program->someone_dead = 1;
 		pthread_mutex_unlock(philo[i]->program->dead);
-		pthread_mutex_lock(philo[i]->program->write);
-		printf("%lu %d died\n", time - 10, philo[i]->sit);
-		pthread_mutex_unlock(philo[i]->program->write);
+		print_msg(philo[i], DEAD);
 		return (1);
 	}
 	return (0);
