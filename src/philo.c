@@ -6,25 +6,11 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/12 19:14:23 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/14 01:37:40 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-void mutex_init(t_program *program)
-{
-	int n;
-
-	n = 0;
-	while (n < program->nbr_philo)
-	{
-		pthread_mutex_init(&program->mutex_fork[n], NULL);
-		n++;
-	}
-	program->dead = malloc(sizeof(pthread_mutex_t));
-	// pthread_mutex_init(program->dead, NULL);
-}
 
 t_philo	*philo_init(t_program *program, int n)
 {

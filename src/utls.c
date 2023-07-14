@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   utls.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:22:54 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/03 17:09:17 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/14 01:30:48 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+void	error_msg(char *error_msg)
+{
+	ft_putendl_fd(error_msg, STDERR_FILENO);
+	if (ft_strcmp(error_msg, FEW_ARG) == 0)
+	{
+		ft_putstr_fd("Usage: ./philo number_of_philo", STDERR_FILENO);
+		ft_putstr_fd("time_to_die time_to_eat time_to_sleep [number eats]\n", STDERR_FILENO);
+	}
+	exit(EXIT_FAILURE);
+}
 
 __uint64_t	ft_atoi( const char *str)
 {

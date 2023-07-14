@@ -7,13 +7,13 @@ SRC_PATH = src/
 OBJ_PATH = obj/
 bonus_PATH = bonus/
 CFLAGS = -Wall -Werror -Wextra -pthread
-DEBUG = -g3 -fsanitize=address
-DEBUG_T = -g3 -fsanitize=thread
+DEBUG = -g -fsanitize=address
+DEBUG_T = -g -fsanitize=thread
 PERFORMANCE = -Ofast -march=native -flto -funroll-loops
 RM = rm -fr
 
 #Sources
-FILES        =     	main validate utls philo time routine
+FILES        =     	main validate utls philo time routine mutex check
 
 # BONUS_FILES	=		
 
@@ -39,7 +39,7 @@ all: $(NAME)
 #MANDATORY
 $(NAME):	$(PHILO_OBJ)
 			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
-			@$(CC) $(INCS) $(CFLAGS) $(DEBUG_T) $(PHILO_OBJ) -o $@
+			@$(CC) $(INCS) $(CFLAGS) $(PHILO_OBJ) -o $@
 
 $(OBJ_PATH)%.o:		$(SRC_PATH)%.c
 			@mkdir -p $(OBJ_PATH)
