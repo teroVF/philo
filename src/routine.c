@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:23:05 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/14 01:39:17 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/14 02:32:19 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,17 @@
 
 void    eating(t_philo *philo)
 {
-    pthread_mutex_lock(philo->program->write);
+    
+    print_msg(philo, EATING);
     philo->last_meal = check_time(philo->program->start);
     if (philo->program->meals != -1)
         philo->numb_meals++;
-    printf("%lu, the philo n %d is eating...\n", check_time(philo->program->start) , philo->sit);
-    pthread_mutex_unlock(philo->program->write);
     ft_usleep(philo->program->time_eat * 1000);
 }
 
 void    sleeping(t_philo *philo)
 {
-    pthread_mutex_lock(philo->program->write);
-    printf("%lu, the philo n %d is sleeping...\n", check_time(philo->program->start) , philo->sit);
-    pthread_mutex_unlock(philo->program->write);
+    print_msg(philo, SLEEPING);
     ft_usleep(philo->program->time_sleep * 1000);
 }
 
@@ -58,9 +55,7 @@ void    pick_left_fork(t_philo *philo, int sit)
         pthread_mutex_lock(philo->program->time);
         printf("%lu, the philo n %d is picking fork left...\n", check_time(philo->program->start) , philo->sit);
         pthread_mutex_lock(&philo->program->mutex_fork[sit]);
-        // pthread_mutex_lock(&philo->program->write);
-        // pthread_mutex_unlock(&philo->program->write);
-        // pthread_mutex_lock(&philo->program->write);
+
         printf("%lu, the philo n %d is picking fork right...\n", check_time(philo->program->start) , philo->sit);
         // pthread_mutex_unlock(&philo->program->write);
     }

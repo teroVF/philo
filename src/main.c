@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/14 01:43:13 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/14 02:24:37 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ int main(int ac, char *av[])
 	simulation_init(&program, av, ac);
 	philo = program.philo;
 	simulation(philo);
-	free_mutex(philo);
+	// free_mutex(philo);
 }

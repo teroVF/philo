@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/14 01:42:10 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/14 01:54:22 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ t_philo	*philo_init(t_program *program, int n)
 	
 	philo = malloc(sizeof(t_philo));
 	philo->tid = malloc(sizeof(pthread_t));
+	if (philo->tid == NULL)
+		error_msg(MALLOC_ERROR);
 	philo->sit = n + 1;
-	philo->even = ((n + 1) % 2 == 0) ? 1 : 0;
+	// philo->even = ((n + 1) % 2 == 0) ? 1 : 0;
 	philo->last_meal = 0;
-	philo->is_full = 0;
+	philo->is_full = false;
 	philo->program = program;
 	if (program->meals != -1)
 		philo->numb_meals = 0;
@@ -41,7 +43,7 @@ void	simulation_init(t_program *program, char **argv, int argc)
 	program->time_sleep = ft_atoi(argv[4]);
 	program->meals = -1;
 	program->start = check_time(0);
-	program->someone_dead = 0;
+	program->someone_dead = false;
 	if (argc == 6)
 		program->meals = (int) ft_atoi(argv[5]);
 	program->philo = malloc(sizeof(t_philo *) * program->nbr_philo + 1);

@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/14 01:36:33 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/14 02:05:37 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ __uint64_t	ft_atoi(const char *str);
 void    	ft_putendl_fd(char *s, int fd);
 void    	ft_putstr_fd(char *s, int fd);
 int			ft_strcmp(const char *s1, const char *s2);
+void		print_msg(t_philo *philo, char *msg);
 
 /* MUTEX INIT AND FREE */
 void		mutex_init(t_program *program);

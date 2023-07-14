@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:22:54 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/14 01:30:48 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/14 02:23:37 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@ void	error_msg(char *error_msg)
 		ft_putstr_fd("time_to_die time_to_eat time_to_sleep [number eats]\n", STDERR_FILENO);
 	}
 	exit(EXIT_FAILURE);
+}
+
+void print_msg(t_philo *philo, char *msg)
+{
+	pthread_mutex_lock(philo->program->write);
+	if (philo->program->someone_dead == false)
+		printf("%lu, the philo n %d %s\n", 
+			check_time(philo->program->start) , philo->sit, msg);
+	else if (philo->program->someone_dead == true)
+		printf("%lu, the philo n %d %s\n", 
+			check_time(philo->program->start) , philo->sit, DEAD);
+	pthread_mutex_unlock(philo->program->write);
 }
 
 __uint64_t	ft_atoi( const char *str)
