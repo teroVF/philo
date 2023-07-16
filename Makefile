@@ -1,7 +1,6 @@
 #Standard
 
 NAME = philo
-BONUS = philo_bonus
 CC = cc
 SRC_PATH = src/
 OBJ_PATH = obj/
@@ -13,7 +12,7 @@ PERFORMANCE = -O3 -march=native -flto -funroll-loops
 RM = rm -fr
 
 #Sources
-FILES        =     	main validate utls philo time routine mutex check
+FILES        =     	main validate utls philo time routine mutex
 
 # BONUS_FILES	=		
 
@@ -39,12 +38,20 @@ all: $(NAME)
 #MANDATORY
 $(NAME):	$(PHILO_OBJ)
 			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
-			@$(CC) $(INCS) $(CFLAGS) $(PERFORMANCE) $(PHILO_OBJ) -o $@
+			@$(CC) $(INCS) $(CFLAGS) $(DEBUG_T) $(PHILO_OBJ) -o $@
 
 $(OBJ_PATH)%.o:		$(SRC_PATH)%.c
 			@mkdir -p $(OBJ_PATH)
 			@echo "$(YELLOW) Compiling: $< $(DEF_COLOR)"
 			@$(CC) $(INCS) $(CFLAGS) -c $< -o $@
+
+debug:		fclean $(PHILO_OBJ)
+			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
+			@$(CC) $(INCS) $(CFLAGS) $(DEBUG) $(PHILO_OBJ) -o $@
+
+debug_t:	fclean $(PHILO_OBJ)
+			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
+			@$(CC) $(INCS) $(CFLAGS) $(DEBUG_T) $(PHILO_OBJ) -o $@
 
 size: 
 			@echo "$(YELLOW)Size of the executable:$(DEF_COLOR)"

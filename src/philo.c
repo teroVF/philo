@@ -6,11 +6,34 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/16 02:57:47 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 14:01:55 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+void free_everything(t_program *program)
+{
+	int i;
+	int n;
+
+	i = -1;
+	n = program->nbr_philo;
+	while (++i < n)
+		pthread_mutex_destroy(&program->mutex_fork[i]);
+	pthread_mutex_destroy(program->dead);
+	pthread_mutex_destroy(program->write);
+	free(program->mutex_fork);
+	free(program->dead);
+	free(program->write);
+	i = -1;
+	while (++i < n)
+		free(program->philo[i]->tid);
+	i = -1;
+	while (++i <= n)
+		free(program->philo[i]);
+	free(program->philo);
+}
 
 t_philo	*philo_init(t_program *program, int n)
 {

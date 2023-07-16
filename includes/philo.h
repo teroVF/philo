@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/16 02:56:58 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 13:02:46 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void		simulation_init(t_program *program, char **argv, int argc);
 void		validation(char **argv, int argc);
 void		error_msg(char *error_msg);
 void    	*routine(void *pointer);
-void		wait_and_check(t_philo **philo);
-void 		stop_threads(t_philo **philo);
+void		free_everything(t_program *program);
 
 /* TIME */
 void    	ft_usleep(time_t mi_s);
