@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/16 20:01:16 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 20:59:06 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,14 @@ int main(int ac, char *av[])
 		error_msg(MANY_ARG);
 		return (EXIT_FAILURE);
 	}	
-	if (validate_args(av, ac) == false)
+	if (!validate_args(av, ac))
 		return (EXIT_FAILURE);
-	simulation_init(&program, av, ac);
+	memset(&program, 0, sizeof(t_program));
+	if (!simulation_init(&program, av, ac))
+	{
+		free_program(&program);
+		return (EXIT_FAILURE);
+	}
 	philo = program.philo;
 	printf("similation will start\n");
 	data(&program);

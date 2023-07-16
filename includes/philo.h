@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/16 20:14:13 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 20:47:01 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <pthread.h>
+# include <string.h>
 # include <sys/time.h>
 # include "log_msg.h"
 
@@ -27,6 +28,7 @@ typedef struct	s_philo
 {
 	bool				dead;
 	bool				even;
+	bool				eating;
 	bool				is_full;
 	int					sit;
 	int					numb_meals;
@@ -44,6 +46,7 @@ typedef struct s_program
 	pthread_mutex_t	*dead;
 	pthread_mutex_t	*time;
 	pthread_mutex_t	*write;
+	pthread_mutex_t	*eating;
 	t_philo			**philo;
 	time_t			start;
 	time_t			time_sleep;
@@ -51,7 +54,7 @@ typedef struct s_program
 	time_t			time_die;
 }					t_program;
 
-void		simulation_init(t_program *program, char **argv, int argc);
+int			simulation_init(t_program *program, char **argv, int argc);
 int			validate_args(char **argv, int argc);
 int			error_msg(char *error_msg);
 void    	*routine(void *pointer);
@@ -62,13 +65,13 @@ void    	ft_usleep(time_t mi_s);
 time_t   	check_time(time_t start);
 
 /* UTLS */
-time_t	ft_atoi(const char *str);
+time_t		ft_atoi(const char *str);
 void    	ft_putendl_fd(char *s, int fd);
 void    	ft_putstr_fd(char *s, int fd);
 int			ft_strcmp(const char *s1, const char *s2);
 void		print_msg(t_philo *philo, char *msg);
 
 /* MUTEX INIT AND FREE */
-void		mutex_init(t_program *program);
+int		mutex_init(t_program *program);
 
 #endif

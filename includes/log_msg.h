@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 03:53:52 by antero            #+#    #+#             */
-/*   Updated: 2023/07/16 14:08:15 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 20:21:48 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define MUTEX_ERROR_FORK "Error creating mutex for fork"
 # define MUTEX_ERROR_DEAD "Error creating mutex for dead"
 # define MUTEX_ERROR_WRITE "Error creating mutex for write"
+# define MUTEX_ERROR_EATING "Error creating mutex for eating"
 # define JOIN_THREAD_ERROR "Error joining thread"
 # define ALL_ARGUMENTS "./PHILONBR NBR_PHILOSOPHERS TIME_TO_DIE TIME_TO_EAT TIME_TO_SLEEP [NBR_MEALS]"
 
