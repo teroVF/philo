@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/16 20:05:06 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 20:12:05 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct	s_philo
 	int					numb_meals;
 	bool				is_full;
 	bool				even;
-	time_t			last_meal;
+	time_t				last_meal;
 	bool				dead;
 	struct s_program	*program;
 }				t_philo;
@@ -39,17 +39,17 @@ typedef struct s_program
 {	
 	t_philo			**philo;
 	int				nbr_philo;
-	time_t		time_die;
-	time_t		time_eat;
-	time_t		time_sleep;
-	time_t		start;
+	time_t			time_die;
+	time_t			time_eat;
+	time_t			time_sleep;
+	time_t			start;
 	int				meals;
 	pthread_mutex_t	*mutex_fork;
 	pthread_mutex_t	*dead;
 	pthread_mutex_t	*time;
 	pthread_mutex_t	*write;
 	int				someone_dead;
-}				t_program;
+}					t_program;
 
 void		simulation_init(t_program *program, char **argv, int argc);
 int			validate_args(char **argv, int argc);
@@ -59,7 +59,7 @@ void		free_program(t_program *program);
 
 /* TIME */
 void    	ft_usleep(time_t mi_s);
-time_t   check_time(time_t start);
+time_t   	check_time(time_t start);
 
 /* UTLS */
 time_t	ft_atoi(const char *str);
