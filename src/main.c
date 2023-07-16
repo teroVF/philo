@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/16 19:55:58 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 20:00:39 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static void data(t_program *program)
 	printf("time_die: %lu\n", program->time_die);
 	printf("time_eat: %lu\n", program->time_eat);
 	printf("time_sleep: %lu\n", program->time_sleep);
-	printf("meals: %d\n", program->meals);
+	if (program->meals != -1)
+		printf("meals: %d\n", program->meals);
 }
 //dupla thread com o mesmo id resolver...
 static void	simulation(t_philo **philo)
