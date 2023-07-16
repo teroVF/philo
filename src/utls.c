@@ -6,13 +6,13 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:22:54 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/16 03:01:22 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 19:45:29 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	error_msg(char *error_msg)
+int	error_msg(char *error_msg)
 {
 	ft_putendl_fd(error_msg, STDERR_FILENO);
 	if (ft_strcmp(error_msg, FEW_ARG) == 0)
@@ -20,7 +20,7 @@ void	error_msg(char *error_msg)
 		ft_putstr_fd("Usage: ./philo number_of_philo", STDERR_FILENO);
 		ft_putstr_fd("time_to_die time_to_eat time_to_sleep [number eats]\n", STDERR_FILENO);
 	}
-	exit(EXIT_FAILURE);
+	return (0);
 }
 
 void print_msg(t_philo *philo, char *msg)

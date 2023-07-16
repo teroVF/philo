@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/16 14:06:49 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 19:55:58 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void data(t_program *program)
 	printf("time_sleep: %lu\n", program->time_sleep);
 	printf("meals: %d\n", program->meals);
 }
-
+//dupla thread com o mesmo id resolver...
 static void	simulation(t_philo **philo)
 {
 	int i;
@@ -54,14 +54,22 @@ int main(int ac, char *av[])
 	t_philo 	**philo;
 	
 	if (ac < 5)
+	{
 		error_msg(FEW_ARG);
+		return (EXIT_FAILURE);
+	}
 	if (ac > 6)
-		error_msg(MANY_ARG);	
-	validation(av, ac);
+	{
+		error_msg(MANY_ARG);
+		return (EXIT_FAILURE);
+	}	
+	if (validate_args(av, ac) == false)
+		return (EXIT_FAILURE);
 	simulation_init(&program, av, ac);
-	data(&program);
 	philo = program.philo;
 	printf("similation will start\n");
+	data(&program);
 	simulation(philo);
 	free_everything(&program);
+	return (EXIT_SUCCESS);
 }

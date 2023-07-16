@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/16 13:02:46 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 19:47:46 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ typedef struct s_program
 }				t_program;
 
 void		simulation_init(t_program *program, char **argv, int argc);
-void		validation(char **argv, int argc);
-void		error_msg(char *error_msg);
+int			validate_args(char **argv, int argc);
+int			error_msg(char *error_msg);
 void    	*routine(void *pointer);
 void		free_everything(t_program *program);
 
@@ -70,6 +70,5 @@ void		print_msg(t_philo *philo, char *msg);
 
 /* MUTEX INIT AND FREE */
 void		mutex_init(t_program *program);
-void		free_mutex(t_philo **philo);
 
 #endif
