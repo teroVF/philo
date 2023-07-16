@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/14 01:54:22 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 02:57:47 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@ t_philo	*philo_init(t_program *program, int n)
 	t_philo *philo;
 	
 	philo = malloc(sizeof(t_philo));
+	if (philo == NULL)
+		error_msg(MALLOC_ERROR);
 	philo->tid = malloc(sizeof(pthread_t));
 	if (philo->tid == NULL)
 		error_msg(MALLOC_ERROR);
 	philo->sit = n + 1;
-	// philo->even = ((n + 1) % 2 == 0) ? 1 : 0;
-	philo->last_meal = 0;
+	philo->even = EVEN(philo->sit);
+	philo->last_meal = check_time(program->start);
 	philo->is_full = false;
+	philo->dead = false;
 	philo->program = program;
 	if (program->meals != -1)
 		philo->numb_meals = 0;
@@ -47,6 +50,8 @@ void	simulation_init(t_program *program, char **argv, int argc)
 	if (argc == 6)
 		program->meals = (int) ft_atoi(argv[5]);
 	program->philo = malloc(sizeof(t_philo *) * program->nbr_philo + 1);
+	if (program->philo == NULL)
+		error_msg(MALLOC_ERROR);
 	while (n < program->nbr_philo)
 	{
 		program->philo[n] = philo_init(program, n);

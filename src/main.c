@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/14 02:24:37 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 02:34:49 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,45 +23,29 @@ static void data(t_program *program)
 
 static void	simulation(t_philo **philo)
 {
-	int n;
+	int i;
 	int flag;
-	
+
 	flag = 0;
-	n = 0;
-	if (!(philo[0]->program->nbr_philo % 2))
+	i = 0;
+	while (i < philo[0]->program->nbr_philo)
 	{
-		while (n < philo[0]->program->nbr_philo)
+		if (pthread_create(philo[i]->tid, NULL, routine, philo[i]))
+			error_msg(CREATE_THREAD_ERROR);
+		i+=2;
+		if (i >= philo[0]->program->nbr_philo && flag == 0)
 		{
-			printf("philo %d\n", philo[n]->sit);
-			pthread_create(philo[n]->tid, NULL, &routine, philo[n]);
-			n += 2;
-			if (n == philo[0]->program->nbr_philo && flag == 0)
-			{
-				n = 1;
-				flag = 1;
-				ft_usleep(2000);
-			}
+			i = 1;
+			flag = 1;
 		}
 	}
-	// else
-	// {
-	// 	while (n < philo[0]->program->nbr_philo - 1)
-	// 	{
-	// 		printf("philo %d\n", philo[n]->sit);
-	// 		pthread_create(philo[n]->tid, NULL, &routine, philo[n]);
-	// 		n += 2;
-	// 		if (n == philo[0]->program->nbr_philo - 1 && flag == 0)
-	// 		{
-	// 			n = 1;
-	// 			flag = 1;
-	// 		}
-	// 	}
-	// 	printf("philo %d\n", philo[philo[0]->program->nbr_philo -1]->sit);
-	// 	pthread_create(philo[philo[0]->program->nbr_philo -1]->tid, NULL, &routine, philo[philo[0]->program->nbr_philo -1]);
-		
-	// }
-	wait_and_check(philo);
-	stop_threads(philo);
+	i = 0;
+	while (i < philo[0]->program->nbr_philo)
+	{
+		if (pthread_join(*philo[i]->tid, NULL))
+			error_msg(JOIN_THREAD_ERROR);
+		i++;
+	}
 }
 
 int main(int ac, char *av[])
@@ -72,10 +56,10 @@ int main(int ac, char *av[])
 	if (ac != 5 && ac != 6)
 		error_msg(FEW_ARG);	
 	validation(av, ac);
-	data(&program);
-	ft_putendl_fd("SIMULATION BEGINS:", STDOUT_FILENO);
 	simulation_init(&program, av, ac);
+	data(&program);
 	philo = program.philo;
+	printf("similation will start\n");
 	simulation(philo);
 	// free_mutex(philo);
 }

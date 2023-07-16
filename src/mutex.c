@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   mutex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 01:29:12 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/14 01:32:14 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/15 03:52:07 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,20 @@ void mutex_init(t_program *program)
 	int n;
 
 	n = 0;
+	
+	program->mutex_fork = malloc(sizeof(pthread_mutex_t) * program->nbr_philo);
 	while (n < program->nbr_philo)
 	{
-		pthread_mutex_init(&program->mutex_fork[n], NULL);
+		if (pthread_mutex_init(&program->mutex_fork[n], NULL) != 0)
+			error_msg(MUTEX_ERROR_FORK);
 		n++;
 	}
 	program->dead = malloc(sizeof(pthread_mutex_t));
 	program->write = malloc(sizeof(pthread_mutex_t));
-	pthread_mutex_init(program->write, NULL);
-	pthread_mutex_init(program->dead, NULL);
+	if (program->dead == NULL || program->write == NULL)
+		error_msg(MALLOC_ERROR);
+	if (pthread_mutex_init(program->dead, NULL) != 0)
+		error_msg(MUTEX_ERROR_DEAD);
+	if (pthread_mutex_init(program->write, NULL) != 0)
+		error_msg(MUTEX_ERROR_WRITE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utls.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:22:54 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/14 02:23:37 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 03:01:22 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void print_msg(t_philo *philo, char *msg)
 	if (philo->program->someone_dead == false)
 		printf("%lu, the philo n %d %s\n", 
 			check_time(philo->program->start) , philo->sit, msg);
-	else if (philo->program->someone_dead == true)
+	else if (philo->dead == true)
 		printf("%lu, the philo n %d %s\n", 
 			check_time(philo->program->start) , philo->sit, DEAD);
 	pthread_mutex_unlock(philo->program->write);
 }
 
-__uint64_t	ft_atoi( const char *str)
+time_t	ft_atoi( const char *str)
 {
 	int		i;
 	int		sinal;

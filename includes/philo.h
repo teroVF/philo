@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/14 02:05:37 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 02:56:58 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <sys/time.h>
 # include "log_msg.h"
 
+# define EVEN(x) (!(x % 2)	? true : false)
+
 typedef struct	s_philo
 {
 	pthread_t			*tid;
@@ -28,7 +30,8 @@ typedef struct	s_philo
 	int					numb_meals;
 	bool				is_full;
 	bool				even;
-	__uint64_t			last_meal;
+	time_t			last_meal;
+	bool				dead;
 	struct s_program	*program;
 }				t_philo;
 
@@ -36,10 +39,10 @@ typedef struct s_program
 {	
 	t_philo			**philo;
 	int				nbr_philo;
-	__uint64_t		time_die;
-	__uint64_t		time_eat;
-	__uint64_t		time_sleep;
-	__uint64_t		start;
+	time_t		time_die;
+	time_t		time_eat;
+	time_t		time_sleep;
+	time_t		start;
 	int				meals;
 	pthread_mutex_t	*mutex_fork;
 	pthread_mutex_t	*dead;
@@ -56,11 +59,11 @@ void		wait_and_check(t_philo **philo);
 void 		stop_threads(t_philo **philo);
 
 /* TIME */
-void    	ft_usleep(__int64_t mi_s);
-__int64_t   check_time(__int64_t start);
+void    	ft_usleep(time_t mi_s);
+time_t   check_time(time_t start);
 
 /* UTLS */
-__uint64_t	ft_atoi(const char *str);
+time_t	ft_atoi(const char *str);
 void    	ft_putendl_fd(char *s, int fd);
 void    	ft_putstr_fd(char *s, int fd);
 int			ft_strcmp(const char *s1, const char *s2);

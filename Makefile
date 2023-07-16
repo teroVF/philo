@@ -9,7 +9,7 @@ bonus_PATH = bonus/
 CFLAGS = -Wall -Werror -Wextra -pthread
 DEBUG = -g -fsanitize=address
 DEBUG_T = -g -fsanitize=thread
-PERFORMANCE = -Ofast -march=native -flto -funroll-loops
+PERFORMANCE = -O3 -march=native -flto -funroll-loops
 RM = rm -fr
 
 #Sources
@@ -39,17 +39,12 @@ all: $(NAME)
 #MANDATORY
 $(NAME):	$(PHILO_OBJ)
 			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
-			@$(CC) $(INCS) $(CFLAGS) $(PHILO_OBJ) -o $@
+			@$(CC) $(INCS) $(CFLAGS) $(PERFORMANCE) $(PHILO_OBJ) -o $@
 
 $(OBJ_PATH)%.o:		$(SRC_PATH)%.c
 			@mkdir -p $(OBJ_PATH)
 			@echo "$(YELLOW) Compiling: $< $(DEF_COLOR)"
 			@$(CC) $(INCS) $(CFLAGS) -c $< -o $@
-
-#BONUS
-# bonus:		$(OBJ_BONUS)
-# 			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
-# 			@$(CC) $(CFLAGS) $(OBJ_BONUS) -o $(BONUS)
 
 size: 
 			@echo "$(YELLOW)Size of the executable:$(DEF_COLOR)"
@@ -68,7 +63,7 @@ clean:
 			@echo "$(BLUE)All objects files cleaned!$(DEF_COLOR)"
 
 fclean: 	clean
-			@$(RM) $(NAME) $(CHECKER)
+			@$(RM) $(NAME)\
 			@echo "$(CYAN)All executable files cleaned!$(DEF_COLOR)"
 
 re: 		fclean all
