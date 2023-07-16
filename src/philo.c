@@ -6,13 +6,13 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/16 14:01:55 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 20:04:50 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void free_everything(t_program *program)
+void free_program(t_program *program)
 {
 	int i;
 	int n;

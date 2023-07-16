@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/16 20:00:39 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 20:01:16 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ int main(int ac, char *av[])
 	printf("similation will start\n");
 	data(&program);
 	simulation(philo);
-	free_everything(&program);
+	free_program(&program);
 	return (EXIT_SUCCESS);
 }

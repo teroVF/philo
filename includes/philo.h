@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/16 19:47:46 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 20:05:06 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		simulation_init(t_program *program, char **argv, int argc);
 int			validate_args(char **argv, int argc);
 int			error_msg(char *error_msg);
 void    	*routine(void *pointer);
-void		free_everything(t_program *program);
+void		free_program(t_program *program);
 
 /* TIME */
 void    	ft_usleep(time_t mi_s);
