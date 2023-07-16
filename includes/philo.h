@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/16 20:12:05 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 20:14:13 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,30 @@
 
 typedef struct	s_philo
 {
-	pthread_t			*tid;
+	bool				dead;
+	bool				even;
+	bool				is_full;
 	int					sit;
 	int					numb_meals;
-	bool				is_full;
-	bool				even;
-	time_t				last_meal;
-	bool				dead;
 	struct s_program	*program;
+	pthread_t			*tid;
+	time_t				last_meal;
 }				t_philo;
 
 typedef struct s_program
 {	
-	t_philo			**philo;
+	int				someone_dead;
 	int				nbr_philo;
-	time_t			time_die;
-	time_t			time_eat;
-	time_t			time_sleep;
-	time_t			start;
 	int				meals;
 	pthread_mutex_t	*mutex_fork;
 	pthread_mutex_t	*dead;
 	pthread_mutex_t	*time;
 	pthread_mutex_t	*write;
-	int				someone_dead;
+	t_philo			**philo;
+	time_t			start;
+	time_t			time_sleep;
+	time_t			time_eat;
+	time_t			time_die;
 }					t_program;
 
 void		simulation_init(t_program *program, char **argv, int argc);
