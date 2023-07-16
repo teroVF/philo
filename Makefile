@@ -45,13 +45,17 @@ $(OBJ_PATH)%.o:		$(SRC_PATH)%.c
 			@echo "$(YELLOW) Compiling: $< $(DEF_COLOR)"
 			@$(CC) $(INCS) $(CFLAGS) -c $< -o $@
 
+PERF:		fclean $(PHILO_OBJ)
+			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
+			@$(CC) $(INCS) $(CFLAGS) $(PERFORMANCE) $(PHILO_OBJ) -o $(NAME)
+
 debug:		fclean $(PHILO_OBJ)
 			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
-			@$(CC) $(INCS) $(CFLAGS) $(DEBUG) $(PHILO_OBJ) -o $@
+			@$(CC) $(INCS) $(CFLAGS) $(DEBUG) $(PHILO_OBJ) -o $(NAME)
 
 debug_t:	fclean $(PHILO_OBJ)
 			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
-			@$(CC) $(INCS) $(CFLAGS) $(DEBUG_T) $(PHILO_OBJ) -o $@
+			@$(CC) $(INCS) $(CFLAGS) $(DEBUG_T) $(PHILO_OBJ) -o $(NAME)
 
 size: 
 			@echo "$(YELLOW)Size of the executable:$(DEF_COLOR)"

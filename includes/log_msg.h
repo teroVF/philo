@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 03:53:52 by antero            #+#    #+#             */
-/*   Updated: 2023/07/16 20:21:48 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/16 23:53:43 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define FORK "has taken a fork"
 # define LEAVE_FORK "has left a fork"
 # define DEAD "is dead"
+# define FULL "is full"
 # define I_AM_ALONE "will die alone. You bastard!"
 
 #endif
