@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/16 20:59:06 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/17 04:17:58 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,15 @@ static void data(t_program *program)
 static void	simulation(t_philo **philo)
 {
 	int i;
-	int flag;
-
-	flag = 0;
+	
 	i = 0;
+	philo[i]->program->start = check_time(0);
+	philo[i]->last_meal = check_time(philo[i]->program->start);
 	while (i < philo[0]->program->nbr_philo)
-	{
+	{	
 		if (pthread_create(philo[i]->tid, NULL, routine, philo[i]))
 			error_msg(CREATE_THREAD_ERROR);
-		i+=2;
-		if (i >= philo[0]->program->nbr_philo - 1 && flag == 0)
-		{
-			i = 1;
-			flag = 1;
-		}
+		i++;
 	}
 	i = 0;
 	while (i < philo[0]->program->nbr_philo)

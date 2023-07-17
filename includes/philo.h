@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/16 20:47:01 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/17 03:51:43 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_program
 	int				someone_dead;
 	int				nbr_philo;
 	int				meals;
+	int				count_philo;
 	pthread_mutex_t	*mutex_fork;
 	pthread_mutex_t	*dead;
 	pthread_mutex_t	*time;
