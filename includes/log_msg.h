@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   log_msg.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 03:53:52 by antero            #+#    #+#             */
-/*   Updated: 2023/07/16 23:53:43 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/24 23:59:00 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@
 # define SLEEPING "is sleeping"
 # define THINKING "is thinking"
 # define FORK "has taken a fork"
-# define LEAVE_FORK "has left a fork"
-# define DEAD "is dead"
+# define DEAD "died"
 # define FULL "is full"
 # define I_AM_ALONE "will die alone. You bastard!"
+# define AQUI_VOU_EU "aqui vou eu"
 
 #endif

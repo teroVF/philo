@@ -7,7 +7,7 @@ OBJ_PATH = obj/
 bonus_PATH = bonus/
 CFLAGS = -Wall -Werror -Wextra -pthread
 DEBUG = -g -fsanitize=address
-DEBUG_T = -g -fsanitize=thread
+DEBUG_T = -g
 PERFORMANCE = -O3 -march=native -flto -funroll-loops
 RM = rm -fr
 

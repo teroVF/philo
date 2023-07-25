@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/17 03:51:43 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/24 23:37:05 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct	s_philo
 
 typedef struct s_program
 {	
+	pthread_t		*check_time;
 	int				someone_dead;
 	int				nbr_philo;
 	int				meals;
@@ -47,7 +48,6 @@ typedef struct s_program
 	pthread_mutex_t	*dead;
 	pthread_mutex_t	*time;
 	pthread_mutex_t	*write;
-	pthread_mutex_t	*eating;
 	t_philo			**philo;
 	time_t			start;
 	time_t			time_sleep;
@@ -74,5 +74,6 @@ void		print_msg(t_philo *philo, char *msg);
 
 /* MUTEX INIT AND FREE */
 int		mutex_init(t_program *program);
+void   *is_dead(void *arg);
 
 #endif

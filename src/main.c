@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/17 04:17:58 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/25 00:29:09 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ static void	simulation(t_philo **philo)
 	i = 0;
 	philo[i]->program->start = check_time(0);
 	philo[i]->last_meal = check_time(philo[i]->program->start);
+	pthread_create(philo[0]->program->check_time, NULL, is_dead, philo[0]->program);
+	pthread_detach(*philo[0]->program->check_time);
 	while (i < philo[0]->program->nbr_philo)
 	{	
-		if (pthread_create(philo[i]->tid, NULL, routine, philo[i]))
-			error_msg(CREATE_THREAD_ERROR);
+		pthread_create(philo[i]->tid, NULL, routine, philo[i]);
 		i++;
 	}
 	i = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/17 03:48:24 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/24 23:43:50 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void free_mutex(t_program *program)
 		pthread_mutex_destroy(program->dead);
 	if (program->write != NULL)
 		pthread_mutex_destroy(program->write);
-	if (program->eating != NULL)
-		pthread_mutex_destroy(program->eating);
 	free(program->dead);
 	free(program->write);
 }
@@ -80,6 +78,9 @@ int	simulation_init(t_program *program, char **argv, int argc)
 	int		n;
 
 	n = -1;
+	program->check_time = malloc(sizeof(pthread_t));
+	if (program->check_time == NULL)
+		return (error_msg(MALLOC_ERROR));
 	program->nbr_philo = (int)ft_atoi(argv[1]);
 	program->time_die = ft_atoi(argv[2]);
 	program->time_eat = ft_atoi(argv[3]);

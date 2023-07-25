@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utls.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:22:54 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/16 19:45:29 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:53:01 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void print_msg(t_philo *philo, char *msg)
 {
 	pthread_mutex_lock(philo->program->write);
 	if (philo->program->someone_dead == false)
-		printf("%lu, the philo n %d %s\n", 
+		printf("%lu %d %s\n", 
 			check_time(philo->program->start) , philo->sit, msg);
 	else if (philo->dead == true)
-		printf("%lu, the philo n %d %s\n", 
+		printf("%lu %d %s\n", 
 			check_time(philo->program->start) , philo->sit, DEAD);
 	pthread_mutex_unlock(philo->program->write);
 }
