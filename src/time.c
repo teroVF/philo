@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 22:03:35 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/25 00:43:01 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/25 19:36:05 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static time_t    milliseconds(void)
+time_t    milliseconds(void)
 {
     struct timeval time;
     

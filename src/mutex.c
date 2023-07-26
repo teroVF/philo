@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 01:29:12 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/17 02:04:43 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/26 04:00:09 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,19 @@ static int  mutex_write_init(t_program *program)
 	return (1);
 }
 
+static int mutex_stop_init(t_program *program)
+{
+	program->m_stop = malloc(sizeof(pthread_mutex_t));
+	if (program->m_stop == NULL)
+		return (error_msg(MALLOC_ERROR));
+	if (pthread_mutex_init(program->m_stop, NULL) != 0)
+		return (error_msg(MUTEX_ERROR_DEAD));
+	return (1);
+}
+
 static int mutex_fork_init(t_program *program)
 {
-		int n;
+	int n;
 
 	n = 0;
 	program->mutex_fork = malloc(sizeof(pthread_mutex_t) * program->nbr_philo);
@@ -53,6 +63,8 @@ int mutex_init(t_program *program)
 	if (mutex_dead_init(program) == 0)
 		return (0);
 	if (mutex_write_init(program) == 0)
+		return (0);
+	if (mutex_stop_init(program) == 0)
 		return (0);
 	return (1);
 }

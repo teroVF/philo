@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/24 23:37:05 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/26 03:59:56 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,22 @@ typedef struct	s_philo
 	int					sit;
 	int					numb_meals;
 	struct s_program	*program;
-	pthread_t			*tid;
+	pthread_t			tid;
 	time_t				last_meal;
 }				t_philo;
 
 typedef struct s_program
-{	
-	pthread_t		*check_time;
+{
+	int				stop;
+	pthread_t		check_time;
 	int				someone_dead;
 	int				nbr_philo;
 	int				meals;
 	int				count_philo;
 	pthread_mutex_t	*mutex_fork;
 	pthread_mutex_t	*dead;
-	pthread_mutex_t	*time;
 	pthread_mutex_t	*write;
+	pthread_mutex_t	*m_stop;
 	t_philo			**philo;
 	time_t			start;
 	time_t			time_sleep;
@@ -62,6 +63,7 @@ void    	*routine(void *pointer);
 void		free_program(t_program *program);
 
 /* TIME */
+time_t    	milliseconds(void);
 void    	ft_usleep(time_t mi_s);
 time_t   	check_time(time_t start);
 
@@ -75,5 +77,6 @@ void		print_msg(t_philo *philo, char *msg);
 /* MUTEX INIT AND FREE */
 int		mutex_init(t_program *program);
 void   *is_dead(void *arg);
+int stop(t_philo *philo);
 
 #endif

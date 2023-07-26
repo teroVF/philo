@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 04:14:09 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/20 04:17:22 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/26 04:03:47 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,15 @@ int	error_msg(char *error_msg)
 void	print_msg(t_philo *philo, char *msg)
 {
 	pthread_mutex_lock(philo->program->write);
-	if (philo->program->someone_dead == false)
-		printf("%lu, the philo n %d %s\n",
+	if (stop(philo))
+		printf("%lu %d %s\n",
 			check_time(philo->program->start), philo->sit, msg);
-	else if (philo->dead == true)
-		printf("%lu, the philo n %d %s\n",
+	else if (philo->dead == true && philo->program->someone_dead == false)
+	{
+		printf("%lu %d %s\n",
 			check_time(philo->program->start), philo->sit, DEAD);
+		philo->program->someone_dead = true;
+	}
 	pthread_mutex_unlock(philo->program->write);
 }
 

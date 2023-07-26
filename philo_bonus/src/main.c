@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/23 03:59:27 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/26 00:57:41 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ void exit_program(t_philo **philo)
 			}
 		}
 		else
-		{
 			printf("error\n");
-		}
 		i++;
 	}
 }
@@ -96,11 +94,9 @@ int main(int ac, char *av[])
 		return (EXIT_FAILURE);
 	}
 	philo = program.philo;
-	printf("similation will start\n");
 	data(&program);
 	simulation(philo);
 	sem_wait(program.write);
-	printf("Main is waiting\n");
 	sem_post(program.write);
 	free_program(&program);
 	kill(0, 2);

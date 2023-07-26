@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/24 23:43:50 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/26 03:55:45 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,15 @@ void free_program(t_program *program)
 	i = -1;
 	n = program->nbr_philo;
 
+	while(++i < n)
+	{
+		if (program->philo[i]->eating == true)
+		{
+			pthread_mutex_unlock(&program->mutex_fork[program->philo[i]->sit - 1]);
+			pthread_mutex_unlock(&program->mutex_fork[program->philo[i]->sit % program->nbr_philo]);
+		}
+	}
 	free_mutex(program);
-	while (++i < n && program->philo[i] != NULL)
-		free(program->philo[i]->tid);
 	i = -1;
 	while (++i < n)
 		free(program->philo[i]);
@@ -56,9 +62,6 @@ t_philo	*philo_init(t_program *program, int n)
 	
 	philo = malloc(sizeof(t_philo));
 	if (philo == NULL)
-		error_msg(MALLOC_ERROR);
-	philo->tid = malloc(sizeof(pthread_t));
-	if (philo->tid == NULL)
 		error_msg(MALLOC_ERROR);
 	philo->sit = n + 1;
 	philo->even = EVEN(philo->sit);
@@ -78,9 +81,6 @@ int	simulation_init(t_program *program, char **argv, int argc)
 	int		n;
 
 	n = -1;
-	program->check_time = malloc(sizeof(pthread_t));
-	if (program->check_time == NULL)
-		return (error_msg(MALLOC_ERROR));
 	program->nbr_philo = (int)ft_atoi(argv[1]);
 	program->time_die = ft_atoi(argv[2]);
 	program->time_eat = ft_atoi(argv[3]);

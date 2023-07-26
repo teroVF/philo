@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/25 00:29:09 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/26 02:14:08 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,21 @@ static void data(t_program *program)
 	if (program->meals != -1)
 		printf("meals: %d\n", program->meals);
 }
-//dupla thread com o mesmo id resolver...
+
 static void	simulation(t_philo **philo)
 {
 	int i;
 	
-	i = 0;
-	philo[i]->program->start = check_time(0);
-	philo[i]->last_meal = check_time(philo[i]->program->start);
-	pthread_create(philo[0]->program->check_time, NULL, is_dead, philo[0]->program);
-	pthread_detach(*philo[0]->program->check_time);
-	while (i < philo[0]->program->nbr_philo)
-	{	
-		pthread_create(philo[i]->tid, NULL, routine, philo[i]);
-		i++;
-	}
-	i = 0;
-	while (i < philo[0]->program->nbr_philo)
+	i = -1;
+	philo[0]->program->start = milliseconds();
+	while (++i < philo[0]->program->nbr_philo)
 	{
-		if (pthread_join(*philo[i]->tid, NULL))
-			error_msg(JOIN_THREAD_ERROR);
-		i++;
+		pthread_create(&philo[i]->tid, NULL, routine, *(philo +i));
+		pthread_detach(philo[i]->tid);
+		ft_usleep(50);
 	}
+	pthread_create(&philo[0]->program->check_time, NULL, is_dead, philo[0]->program);
+	pthread_join(philo[0]->program->check_time, NULL);
 }
 
 int main(int ac, char *av[])
