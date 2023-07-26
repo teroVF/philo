@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/26 00:57:41 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/26 04:15:53 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static void	simulation(t_philo **philo)
 	philo[0]->program->start = check_time(0);
 	while (i < philo[0]->program->nbr_philo)
 	{
-		printf("i: %d\n", i);
 		pid = fork();
 		if (pid == 0)
 		{
@@ -63,7 +62,6 @@ static void	simulation(t_philo **philo)
 		else if (pid < 0)
 			error_msg(FORK_ERROR);
 		philo[i]->pid = pid;
-		printf("pid: %d\n", philo[i]->pid);
 		i++;
 	}
 	exit_program(philo);

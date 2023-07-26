@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 04:14:09 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/26 04:03:47 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/26 04:24:44 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	error_msg(char *error_msg)
 		ft_putstr_fd("time_to_die time_to_eat ", STDERR_FILENO);
 		ft_putendl_fd("time_to_sleep [number eats]\n", STDERR_FILENO);
 	}
-	return (0);
+	return (1);
 }
 
 void	print_msg(t_philo *philo, char *msg)

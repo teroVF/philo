@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:23:05 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/26 04:06:46 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/26 04:29:54 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	*routine(void *pointer)
 	philo = (t_philo *) pointer;
 	while(stop(philo))
 	{	
-	if (!(philo->sit % 2 == 0))
+		if (!(philo->sit % 2 == 0))
 			ft_usleep(1000);
 		pick_forks(philo, philo->sit);
 		eating(philo);

@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:41:02 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/16 19:52:28 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/26 04:26:52 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int if_is_a_number(char *str)
 	i = 0;
 
 	if (!str[i])
-		return (0);
+		return (1);
 	if (str[i] == '-' )
 		return (error_msg(NEG_ARG));
 	if (str[i] == '+' || str[i] == '0')
@@ -30,7 +30,7 @@ static int if_is_a_number(char *str)
 			return (error_msg(NOT_NBR));
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 int	validate_args(char **argv, int argc)
@@ -40,7 +40,7 @@ int	validate_args(char **argv, int argc)
 	i = 1;
 	while (i < argc)
 	{
-		if(!if_is_a_number(argv[i]))
+		if(if_is_a_number(argv[i]))
 			return (0);
 		i++;
 	}

@@ -6,18 +6,11 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:23:05 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/23 04:00:55 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/26 04:22:47 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
-
-// void unlock_fork_when_dead(t_philo *philo)
-// {
-// 	sem_post(philo->program->forks);
-// 	sem_post(philo->program->forks);
-// 	philo->eating = false;
-// }
 
 int	pick_forks(t_philo *philo)
 {

@@ -6,32 +6,33 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 22:03:35 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/25 19:36:05 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/26 04:36:54 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-time_t    milliseconds(void)
+time_t	milliseconds(void)
 {
-    struct timeval time;
-    
-    gettimeofday(&time, NULL);
-    return (time.tv_sec * 1000 + time.tv_usec / 1000);
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void    ft_usleep(time_t mi_s)
+void	ft_usleep(time_t mi_s)
 {
-    time_t  start;
-    start = milliseconds();
-    while ((milliseconds() - start) * 1000 < mi_s)
+	time_t	start;
+
+	start = milliseconds();
+	while ((milliseconds() - start) * 1000 < mi_s)
 		continue ;
 }
 
-time_t   check_time(time_t start)
+time_t	check_time(time_t start)
 {
-    time_t real_time;
-    
+	time_t	real_time;
+
 	real_time = (milliseconds()) - start;
-    return (real_time);
+	return (real_time);
 }

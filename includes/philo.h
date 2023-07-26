@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/26 03:59:56 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/26 04:21:41 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,6 @@ void		print_msg(t_philo *philo, char *msg);
 /* MUTEX INIT AND FREE */
 int		mutex_init(t_program *program);
 void   *is_dead(void *arg);
-int stop(t_philo *philo);
+int 	stop(t_philo *philo);
 
 #endif
