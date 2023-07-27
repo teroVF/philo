@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utls2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 04:14:09 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/26 04:24:44 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/27 02:24:34 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,28 @@ int	error_msg(char *error_msg)
 
 void	print_msg(t_philo *philo, char *msg)
 {
-	pthread_mutex_lock(philo->program->write);
-	if (stop(philo))
-		printf("%lu %d %s\n",
-			check_time(philo->program->start), philo->sit, msg);
-	else if (philo->dead == true && philo->program->someone_dead == false)
+	struct timeval	time;
+	
+	pthread_mutex_lock(&philo->program->m_stop);	
+	if (philo->program->stop == 1)
 	{
-		printf("%lu %d %s\n",
-			check_time(philo->program->start), philo->sit, DEAD);
-		philo->program->someone_dead = true;
+		pthread_mutex_unlock(&philo->program->m_stop);
+		return ;
 	}
-	pthread_mutex_unlock(philo->program->write);
+	
+	pthread_mutex_lock(&philo->program->write);
+	set_time(&time);
+	if (strcmp(msg, DEAD) == 0)
+	{
+		printf("%lld %d %s\n",
+			deltatime(*philo->program->off_set_time, time), philo->sit, DEAD);
+		philo->program->stop = 1;
+	}
+	else
+		printf("%lld %d %s\n",
+			deltatime(*philo->program->off_set_time, time), philo->sit, msg);
+	pthread_mutex_unlock(&philo->program->write);
+	pthread_mutex_unlock(&philo->program->m_stop);
 }
 
 time_t	ft_atoi( const char *str)

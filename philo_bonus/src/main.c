@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/26 04:15:53 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/27 03:48:43 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void exit_program(t_philo **philo)
 	int i;
 	i = 0;
 	int status;
-
+	printf("endereco do programa: %p\n", philo[0]->program);
 	while (i < philo[0]->program->nbr_philo)
 	{
 		waitpid(-1, &status, 0);
@@ -94,9 +94,6 @@ int main(int ac, char *av[])
 	philo = program.philo;
 	data(&program);
 	simulation(philo);
-	sem_wait(program.write);
-	sem_post(program.write);
 	free_program(&program);
-	kill(0, 2);
 	return (EXIT_SUCCESS);
 }

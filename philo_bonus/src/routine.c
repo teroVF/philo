@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:23:05 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/26 04:22:47 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/27 03:49:08 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,11 @@ int		one_philo(t_philo *philo)
 	print_msg(philo, DEAD);
 	return (1);
 }
-	//criar threads que verificam se o philo morreu ou se está cheio
-	//implementar os semaforos
-
-//se o valor retornado for 0 quer dizer que simulaçao acabou sem mortes
-//se o valor retornado for 1 quer dizer que simulaçao acabou com mortes
 void *check_events(void *arg)
 {
 	t_philo *philo;
-
+	int flag_all_eat;
+	flag_all_eat = 0;
 	philo = (t_philo *)arg;
 	while (1)
 	{
@@ -70,7 +66,7 @@ void *check_events(void *arg)
 		sem_wait(philo->program->dead);
 		if (philo->program->meals != -1 && philo->numb_meals == philo->program->meals)
 		{
-			print_msg(philo, FULL);
+			flag_all_eat++;
 			exit(0);
 		}
 		sem_post(philo->program->dead);
@@ -91,6 +87,9 @@ int	routine(t_philo *philo)
 		one_philo(philo);
 		return (1);
 	}
+	sem_wait(philo->program->write);
+	printf("endereco do programa: %p\n", philo->program);
+	sem_post(philo->program->write);
 	philo->last_meal = check_time(0);
 	while (1)
 	{

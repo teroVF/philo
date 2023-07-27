@@ -3,48 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   mutex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 01:29:12 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/26 04:00:09 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/27 01:02:59 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static	int	mutex_dead_init(t_program *program)
+static int	mutex_write_init(t_program *program)
 {
-	program->dead = malloc(sizeof(pthread_mutex_t));
-	if (program->dead == NULL)
-		return (error_msg(MALLOC_ERROR));
-	if (pthread_mutex_init(program->dead, NULL) != 0)
-		return (error_msg(MUTEX_ERROR_DEAD));
-	return (1);
+	if (pthread_mutex_init(&program->write, NULL) != 0)
+		return (error_msg(MUTEX_ERROR_WRITE));
+	printf("mutex write: %p\n", &program->write);
+	return (0);
 }
 
-static int  mutex_write_init(t_program *program)
+static int	mutex_stop_init(t_program *program)
 {
-	program->write = malloc(sizeof(pthread_mutex_t));
-	if (program->write == NULL)
-		return (error_msg(MALLOC_ERROR));
-	if (pthread_mutex_init(program->write, NULL) != 0)
-		return (error_msg(MUTEX_ERROR_DEAD));
-	return (1);
+	if (pthread_mutex_init(&program->m_stop, NULL) != 0)
+		return (error_msg(MUTEX_ERROR_STOP));
+	printf("mutex stop: %p\n", &program->m_stop);
+	return (0);
 }
 
-static int mutex_stop_init(t_program *program)
+static int	mutex_fork_init(t_program *program)
 {
-	program->m_stop = malloc(sizeof(pthread_mutex_t));
-	if (program->m_stop == NULL)
-		return (error_msg(MALLOC_ERROR));
-	if (pthread_mutex_init(program->m_stop, NULL) != 0)
-		return (error_msg(MUTEX_ERROR_DEAD));
-	return (1);
-}
-
-static int mutex_fork_init(t_program *program)
-{
-	int n;
+	int	n;
 
 	n = 0;
 	program->mutex_fork = malloc(sizeof(pthread_mutex_t) * program->nbr_philo);
@@ -52,19 +38,19 @@ static int mutex_fork_init(t_program *program)
 	{
 		if (pthread_mutex_init(&program->mutex_fork[n], NULL) != 0)
 			return (error_msg(MUTEX_ERROR_FORK));
+		printf("mutex fork[%d]: %p\n", n, &program->mutex_fork[n]);
 		n++;
 	}
-	return (1);
+	return (0);
 }
-int mutex_init(t_program *program)
+
+int	mutex_init(t_program *program)
 {
-	if (mutex_fork_init(program) == 0)
+	if (mutex_fork_init(program) != 0)
 		return (0);
-	if (mutex_dead_init(program) == 0)
+	if (mutex_write_init(program) != 0)
 		return (0);
-	if (mutex_write_init(program) == 0)
-		return (0);
-	if (mutex_stop_init(program) == 0)
+	if (mutex_stop_init(program) != 0)
 		return (0);
 	return (1);
 }

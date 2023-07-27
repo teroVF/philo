@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/26 03:55:45 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/27 00:51:54 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,14 @@ void free_mutex(t_program *program)
 
 	i = -1;
 	n = program->nbr_philo;
+	pthread_mutex_destroy(&program->m_stop);
+	pthread_mutex_destroy(&program->write);
 	while (++i < n)
 	{
 		if (&program->mutex_fork[i] != NULL && program->mutex_fork != NULL)
 			pthread_mutex_destroy(&program->mutex_fork[i]);
 	}
 	free(program->mutex_fork);
-	if (program->dead != NULL)
-		pthread_mutex_destroy(program->dead);
-	if (program->write != NULL)
-		pthread_mutex_destroy(program->write);
-	free(program->dead);
-	free(program->write);
 }
 
 void free_program(t_program *program)
@@ -40,15 +36,6 @@ void free_program(t_program *program)
 
 	i = -1;
 	n = program->nbr_philo;
-
-	while(++i < n)
-	{
-		if (program->philo[i]->eating == true)
-		{
-			pthread_mutex_unlock(&program->mutex_fork[program->philo[i]->sit - 1]);
-			pthread_mutex_unlock(&program->mutex_fork[program->philo[i]->sit % program->nbr_philo]);
-		}
-	}
 	free_mutex(program);
 	i = -1;
 	while (++i < n)
@@ -62,12 +49,14 @@ t_philo	*philo_init(t_program *program, int n)
 	
 	philo = malloc(sizeof(t_philo));
 	if (philo == NULL)
+	{
 		error_msg(MALLOC_ERROR);
+		return (NULL);
+	}
 	philo->sit = n + 1;
 	philo->even = EVEN(philo->sit);
 	philo->is_full = false;
 	philo->dead = false;
-	philo->eating = false;
 	philo->program = program;
 	if (program->meals != -1)
 		philo->numb_meals = 0;

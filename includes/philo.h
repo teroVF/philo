@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/26 04:21:41 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/27 02:22:53 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ typedef struct s_program
 	int				meals;
 	int				count_philo;
 	pthread_mutex_t	*mutex_fork;
-	pthread_mutex_t	*dead;
-	pthread_mutex_t	*write;
-	pthread_mutex_t	*m_stop;
+	pthread_mutex_t	write;
+	pthread_mutex_t	m_stop;
 	t_philo			**philo;
 	time_t			start;
+	struct timeval	*off_set_time;
 	time_t			time_sleep;
 	time_t			time_eat;
 	time_t			time_die;
@@ -63,9 +63,9 @@ void    	*routine(void *pointer);
 void		free_program(t_program *program);
 
 /* TIME */
-time_t    	milliseconds(void);
-void    	ft_usleep(time_t mi_s);
-time_t   	check_time(time_t start);
+// time_t    	milliseconds(void);
+// void    	ft_usleep(time_t mi_s);
+// time_t   	check_time(time_t start);
 
 /* UTLS */
 time_t		ft_atoi(const char *str);
@@ -75,8 +75,9 @@ int			ft_strcmp(const char *s1, const char *s2);
 void		print_msg(t_philo *philo, char *msg);
 
 /* MUTEX INIT AND FREE */
-int		mutex_init(t_program *program);
-void   *is_dead(void *arg);
-int 	stop(t_philo *philo);
+int			mutex_init(t_program *program);
+void   		*is_dead(void *arg);
+long long	deltatime(struct timeval t0, struct timeval t1);
+int			set_time(struct timeval *t);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 03:53:52 by antero            #+#    #+#             */
-/*   Updated: 2023/07/24 23:59:00 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/27 01:02:32 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@
 # define MALLOC_ERROR "Malloc error"
 # define CREATE_THREAD_ERROR "Error creating thread"
 # define MUTEX_ERROR_FORK "Error creating mutex for fork"
-# define MUTEX_ERROR_DEAD "Error creating mutex for dead"
+# define MUTEX_ERROR_STOP "Error creating mutex for stop"
 # define MUTEX_ERROR_WRITE "Error creating mutex for write"
-# define MUTEX_ERROR_EATING "Error creating mutex for eating"
 # define JOIN_THREAD_ERROR "Error joining thread"
 # define ALL_ARGUMENTS "./PHILONBR NBR_PHILOSOPHERS TIME_TO_DIE TIME_TO_EAT TIME_TO_SLEEP [NBR_MEALS]"
 

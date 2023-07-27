@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/23 04:03:22 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/27 02:54:19 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ t_philo	*philo_init(t_program *program, int n)
 	if (philo == NULL)
 		error_msg(MALLOC_ERROR);
 	philo->sit = n + 1;
-	philo->even = EVEN(philo->sit);
 	philo->is_full = false;
 	philo->dead = false;
 	philo->eating = false;

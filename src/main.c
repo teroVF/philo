@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/26 04:33:50 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/27 02:19:23 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,21 @@ static void	simulation(t_philo **philo)
 	int		i;
 
 	i = -1;
-	philo[0]->program->start = milliseconds();
+	set_time(philo[0]->program->off_set_time);
 	while (++i < philo[0]->program->nbr_philo)
 	{
 		pthread_create(&philo[i]->tid, NULL, routine, *(philo + i));
-		pthread_detach(philo[i]->tid);
-		ft_usleep(50);
 	}
 	pthread_create(&philo[0]->program->check_time, NULL,
 		is_dead, philo[0]->program);
-	pthread_join(philo[0]->program->check_time, NULL);
+	pthread_detach(philo[0]->program->check_time);
+	i = -1;
+	// while (++i < philo[0]->program->nbr_philo)
+	// 	pthread_join(philo[i]->tid, NULL);
+	while (1)
+		;
+	
+	free_program(philo[0]->program);
 }
 
 int	main(int ac, char *av[])
@@ -59,6 +64,5 @@ int	main(int ac, char *av[])
 	philo = program.philo;
 	data(&program);
 	simulation(philo);
-	free_program(&program);
 	return (EXIT_SUCCESS);
 }
