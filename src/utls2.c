@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utls2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 04:14:09 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/27 02:24:34 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:51:24 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	print_msg(t_philo *philo, char *msg)
 	if (strcmp(msg, DEAD) == 0)
 	{
 		printf("%lld %d %s\n",
-			deltatime(*philo->program->off_set_time, time), philo->sit, DEAD);
+			deltatime(philo->program->start, time), philo->sit, DEAD);
 		philo->program->stop = 1;
 	}
 	else
 		printf("%lld %d %s\n",
-			deltatime(*philo->program->off_set_time, time), philo->sit, msg);
+			deltatime(philo->program->start, time), philo->sit, msg);
 	pthread_mutex_unlock(&philo->program->write);
 	pthread_mutex_unlock(&philo->program->m_stop);
 }

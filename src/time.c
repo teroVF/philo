@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 22:03:35 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/27 02:47:37 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:59:00 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,3 +47,16 @@ long long	deltatime(struct timeval t0, struct timeval t1)
 {
 	return ((utime(t1) - utime(t0)) / 1000);
 }
+
+// int main()
+// {
+// 	struct timeval t0;
+// 	struct timeval t1;
+	
+// 	set_time(&t0);
+// 	usleep(1000000);
+// 	set_time(&t1);
+// 	printf("%lld\n", utime(t0));
+// 	printf("%lld\n", utime(t1));
+// 	printf("%lld\n", deltatime(t0, t1));
+// }

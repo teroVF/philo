@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/27 02:19:23 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:47:54 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,19 @@ static void	simulation(t_philo **philo)
 	int		i;
 
 	i = -1;
-	set_time(philo[0]->program->off_set_time);
+	set_time(&philo[0]->program->start);
+	printf("start: %lld\n", utime(philo[0]->program->start));
 	while (++i < philo[0]->program->nbr_philo)
 	{
+		philo[i]->last_meal = philo[i]->program->start;
 		pthread_create(&philo[i]->tid, NULL, routine, *(philo + i));
 	}
 	pthread_create(&philo[0]->program->check_time, NULL,
 		is_dead, philo[0]->program);
 	pthread_detach(philo[0]->program->check_time);
 	i = -1;
-	// while (++i < philo[0]->program->nbr_philo)
-	// 	pthread_join(philo[i]->tid, NULL);
-	while (1)
-		;
-	
+	while (++i < philo[0]->program->nbr_philo)
+		pthread_join(philo[i]->tid, NULL);
 	free_program(philo[0]->program);
 }
 

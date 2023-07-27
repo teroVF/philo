@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/27 02:22:53 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:30:38 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 typedef struct	s_philo
 {
+	struct timeval		last_meal;
 	bool				dead;
 	bool				even;
 	bool				eating;
@@ -34,7 +35,6 @@ typedef struct	s_philo
 	int					numb_meals;
 	struct s_program	*program;
 	pthread_t			tid;
-	time_t				last_meal;
 }				t_philo;
 
 typedef struct s_program
@@ -49,8 +49,7 @@ typedef struct s_program
 	pthread_mutex_t	write;
 	pthread_mutex_t	m_stop;
 	t_philo			**philo;
-	time_t			start;
-	struct timeval	*off_set_time;
+	struct timeval	start;
 	time_t			time_sleep;
 	time_t			time_eat;
 	time_t			time_die;
@@ -79,5 +78,6 @@ int			mutex_init(t_program *program);
 void   		*is_dead(void *arg);
 long long	deltatime(struct timeval t0, struct timeval t1);
 int			set_time(struct timeval *t);
+long long	utime(struct timeval t);
 
 #endif
