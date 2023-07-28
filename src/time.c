@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 22:03:35 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/27 16:59:00 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/28 00:10:06 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+static long long	utime(struct timeval t)
+{
+	return (t.tv_sec * 1000000 + t.tv_usec);
+}
 
 int	set_time(struct timeval *t)
 {
@@ -22,41 +27,7 @@ int	set_time(struct timeval *t)
 	return (0);
 }
 
-// long long	utimestamp(struct timeval t0)
-// {
-// 	struct timeval	t;
-
-// 	if (set_time(&t) == 1)
-// 		return (-1);
-// 	t.tv_sec = t.tv_sec - t0.tv_sec;
-// 	t.tv_usec = t.tv_usec - t0.tv_usec;
-// 	if (t.tv_usec < 0)
-// 	{
-// 		t.tv_usec += 1000000;
-// 		t.tv_sec -= 1;
-// 	}
-// 	return (t.tv_sec * 1000000 + t.tv_usec);
-// }
-
-long long	utime(struct timeval t)
-{
-	return (t.tv_sec * 1000000 + t.tv_usec);
-}
-
-long long	deltatime(struct timeval t0, struct timeval t1)
+time_t	deltatime(struct timeval t0, struct timeval t1)
 {
 	return ((utime(t1) - utime(t0)) / 1000);
 }
-
-// int main()
-// {
-// 	struct timeval t0;
-// 	struct timeval t1;
-	
-// 	set_time(&t0);
-// 	usleep(1000000);
-// 	set_time(&t1);
-// 	printf("%lld\n", utime(t0));
-// 	printf("%lld\n", utime(t1));
-// 	printf("%lld\n", deltatime(t0, t1));
-// }

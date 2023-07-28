@@ -6,16 +6,16 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/27 00:51:54 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/28 01:10:15 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void free_mutex(t_program *program)
+static void	free_mutex(t_program *program)
 {
-	int i;
-	int n;
+	int	i;
+	int	n;
 
 	i = -1;
 	n = program->nbr_philo;
@@ -29,10 +29,10 @@ void free_mutex(t_program *program)
 	free(program->mutex_fork);
 }
 
-void free_program(t_program *program)
+void	free_program(t_program *program)
 {
-	int i;
-	int n;
+	int	i;
+	int	n;
 
 	i = -1;
 	n = program->nbr_philo;
@@ -45,8 +45,8 @@ void free_program(t_program *program)
 
 t_philo	*philo_init(t_program *program, int n)
 {
-	t_philo *philo;
-	
+	t_philo	*philo;
+
 	philo = malloc(sizeof(t_philo));
 	if (philo == NULL)
 	{
@@ -54,23 +54,22 @@ t_philo	*philo_init(t_program *program, int n)
 		return (NULL);
 	}
 	philo->sit = n + 1;
-	philo->even = EVEN(philo->sit);
-	philo->is_full = false;
-	philo->dead = false;
+	philo->even = n % 2;
+	philo->is_full = FALSE;
 	philo->program = program;
 	if (program->meals != -1)
 		philo->numb_meals = 0;
 	else
 		philo->numb_meals = -1;
-	return (philo);	
+	return (philo);
 }
 
 int	simulation_init(t_program *program, char **argv, int argc)
 {
-	int		n;
+	int	n;
 
 	n = -1;
-	program->nbr_philo = (int)ft_atoi(argv[1]);
+	program->nbr_philo = (int) ft_atoi(argv[1]);
 	program->time_die = ft_atoi(argv[2]);
 	program->time_eat = ft_atoi(argv[3]);
 	program->time_sleep = ft_atoi(argv[4]);

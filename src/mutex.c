@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 01:29:12 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/27 01:02:59 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/28 00:54:14 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static int	mutex_write_init(t_program *program)
 {
 	if (pthread_mutex_init(&program->write, NULL) != 0)
 		return (error_msg(MUTEX_ERROR_WRITE));
-	printf("mutex write: %p\n", &program->write);
 	return (0);
 }
 
@@ -24,7 +23,6 @@ static int	mutex_stop_init(t_program *program)
 {
 	if (pthread_mutex_init(&program->m_stop, NULL) != 0)
 		return (error_msg(MUTEX_ERROR_STOP));
-	printf("mutex stop: %p\n", &program->m_stop);
 	return (0);
 }
 
@@ -38,7 +36,6 @@ static int	mutex_fork_init(t_program *program)
 	{
 		if (pthread_mutex_init(&program->mutex_fork[n], NULL) != 0)
 			return (error_msg(MUTEX_ERROR_FORK));
-		printf("mutex fork[%d]: %p\n", n, &program->mutex_fork[n]);
 		n++;
 	}
 	return (0);

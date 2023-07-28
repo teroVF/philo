@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utls2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 04:14:09 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/27 17:51:24 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/28 02:50:45 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,36 @@ int	error_msg(char *error_msg)
 void	print_msg(t_philo *philo, char *msg)
 {
 	struct timeval	time;
-	
-	pthread_mutex_lock(&philo->program->m_stop);	
+
+	pthread_mutex_lock(&philo->program->m_stop);
 	if (philo->program->stop == 1)
 	{
 		pthread_mutex_unlock(&philo->program->m_stop);
 		return ;
 	}
-	
 	pthread_mutex_lock(&philo->program->write);
 	set_time(&time);
 	if (strcmp(msg, DEAD) == 0)
 	{
-		printf("%lld %d %s\n",
+		printf("%lu %d %s\n",
 			deltatime(philo->program->start, time), philo->sit, DEAD);
 		philo->program->stop = 1;
 	}
 	else
-		printf("%lld %d %s\n",
+		printf("%lu %d %s\n",
 			deltatime(philo->program->start, time), philo->sit, msg);
 	pthread_mutex_unlock(&philo->program->write);
 	pthread_mutex_unlock(&philo->program->m_stop);
+}
+
+int	ft_strlen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
 time_t	ft_atoi( const char *str)
@@ -69,6 +78,8 @@ time_t	ft_atoi( const char *str)
 			sinal *= -1;
 		i++;
 	}
+	if (ft_strlen(str) > 19)
+		return (9223372036854775807);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		num = (num * 10) + (str[i] - 48);

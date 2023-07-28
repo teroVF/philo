@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/27 03:48:43 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/28 00:43:45 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,5 @@ int main(int ac, char *av[])
 	philo = program.philo;
 	data(&program);
 	simulation(philo);
-	free_program(&program);
 	return (EXIT_SUCCESS);
 }
