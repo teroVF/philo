@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/27 02:54:19 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/28 03:37:28 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ t_philo	*philo_init(t_program *program, int n)
 	if (philo == NULL)
 		error_msg(MALLOC_ERROR);
 	philo->sit = n + 1;
-	philo->is_full = false;
+	philo->is_full = FALSE;
 	philo->dead = false;
-	philo->eating = false;
 	philo->program = program;
 	if (program->meals != -1)
 		philo->numb_meals = 0;

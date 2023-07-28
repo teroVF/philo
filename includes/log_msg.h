@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 03:23:55 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/28 03:25:53 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/28 03:38:41 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define LOG_MSG_H
 
 /* ERROR MESSAGES */
-/* arguments validation errors*/
 # define FEW_ARG "Few Arguments."
 # define TOO_SMALL "All time arguments should be greater than 60"
 # define TOO_BIG "All time arguments should be Less than LONG_MAX"
@@ -39,9 +38,6 @@ TIME_TO_DIE TIME_TO_EAT TIME_TO_SLEEP [NBR_MEALS]"
 # define THINKING "is thinking"
 # define FORK "has taken a fork"
 # define DEAD "died"
-# define FULL "is full"
-# define I_AM_ALONE "will die alone. You bastard!"
-# define AQUI_VOU_EU "aqui vou eu"
 # define FALSE 0
 # define TRUE  1
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utls.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:22:54 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/20 18:02:58 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/28 03:51:24 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,21 @@ int	error_msg(char *error_msg)
 	if (ft_strcmp(error_msg, FEW_ARG) == 0)
 	{
 		ft_putstr_fd("Usage: ./philo number_of_philo", STDERR_FILENO);
-		ft_putstr_fd("time_to_die time_to_eat time_to_sleep [number eats]\n", STDERR_FILENO);
+		ft_putstr_fd("time_to_die time_to_eat ", STDERR_FILENO);
+		ft_putendl_fd("time_to_sleep [number eats]\n", STDERR_FILENO);
 	}
-	return (0);
+	return (1);
 }
 
 void print_msg(t_philo *philo, char *msg)
 {
 	sem_wait(philo->program->write);
 	if (philo->program->someone_dead == false)
-		printf("%lu, the philo n %d %s\n", 
-			check_time(philo->program->start) , philo->sit, msg);
+		printf("%lu %d %s\n", 
+			deltatime(philo->program->start, time) , philo->sit, msg);
 	else if (philo->dead == true)
 		printf("%lu, the philo n %d %s\n", 
-			check_time(philo->program->start) , philo->sit, DEAD);
+			deltatime(philo->program->start, time) , philo->sit, DEAD);
 	sem_post(philo->program->write);
 }
 

@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:23:05 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/27 03:49:08 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/28 03:34:57 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		one_philo(t_philo *philo)
 	print_msg(philo, DEAD);
 	return (1);
 }
-void *check_events(void *arg)
+void *monitor(void *arg)
 {
 	t_philo *philo;
 	int flag_all_eat;
@@ -78,7 +78,7 @@ void *check_events(void *arg)
 
 int	routine(t_philo *philo)
 {
-	if (pthread_create(&philo->check_events, NULL, check_events, philo) != 0)
+	if (pthread_create(&philo->check_events, NULL, monitor, philo) != 0)
 		return (error_msg(CREATE_THREAD_ERROR));
 	if (pthread_detach(philo->check_events) != 0)
 		return (error_msg(JOIN_THREAD_ERROR));
@@ -87,9 +87,6 @@ int	routine(t_philo *philo)
 		one_philo(philo);
 		return (1);
 	}
-	sem_wait(philo->program->write);
-	printf("endereco do programa: %p\n", philo->program);
-	sem_post(philo->program->write);
 	philo->last_meal = check_time(0);
 	while (1)
 	{

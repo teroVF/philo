@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/28 00:43:45 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/28 03:49:46 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,27 @@ void exit_program(t_philo **philo)
 	}
 }
 
-static void	simulation(t_philo **philo)
+static int	simulation(t_philo **philo)
 {
 	int i;
 	int pid;
 
-	i = 0;
-	philo[0]->program->start = check_time(0);
-	while (i < philo[0]->program->nbr_philo)
+	i = -1;
+	set_time(&philo[0]->program->start);
+	while (++i < philo[0]->program->nbr_philo)
 	{
 		pid = fork();
 		if (pid == 0)
 		{
+			philo[i]->last_meal = philo[i]->program->start;
 			routine(philo[i]);
 			exit(0);
 		}
 		else if (pid < 0)
-			error_msg(FORK_ERROR);
+			return (error_msg(FORK_ERROR));
 		philo[i]->pid = pid;
 		i++;
 	}
-	exit_program(philo);
-
 }
 
 int main(int ac, char *av[])
@@ -74,15 +73,9 @@ int main(int ac, char *av[])
 	t_philo 	**philo;
 
 	if (ac < 5)
-	{
-		error_msg(FEW_ARG);
-		return (EXIT_FAILURE);
-	}
-	if (ac > 6)
-	{
-		error_msg(MANY_ARG);
-		return (EXIT_FAILURE);
-	}
+		return (error_msg(FEW_ARG));
+	else if (ac > 6)
+		return (error_msg(MANY_ARG));
 	if (!validate_args(av, ac))
 		return (EXIT_FAILURE);
 	memset(&program, 0, sizeof(t_program));
@@ -93,6 +86,11 @@ int main(int ac, char *av[])
 	}
 	philo = program.philo;
 	data(&program);
-	simulation(philo);
+	if (simulation(philo) == 1)
+	{
+		free_program(philo[0]->program);
+		return (EXIT_FAILURE);
+	}
+	free_program(philo[0]->program);
 	return (EXIT_SUCCESS);
 }

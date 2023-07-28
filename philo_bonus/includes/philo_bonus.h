@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/27 02:49:28 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/28 03:40:19 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <fcntl.h>
 #include <signal.h>
 #include <sys/wait.h>
+# include <limits.h>
+# include "log_msg.h"
 # include "log_msg_bonus.h"
 
 typedef struct	s_philo
