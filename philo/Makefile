@@ -38,14 +38,14 @@ all: $(NAME)
 #MANDATORY
 $(NAME):	$(PHILO_OBJ)
 			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
-			@$(CC) $(INCS) $(CFLAGS) $(DEBUG_T) $(PHILO_OBJ) -o $@
+			@$(CC) $(INCS) $(CFLAGS) -O3 $(PHILO_OBJ) -o $@
 
 $(OBJ_PATH)%.o:		$(SRC_PATH)%.c
 			@mkdir -p $(OBJ_PATH)
 			@echo "$(YELLOW) Compiling: $< $(DEF_COLOR)"
 			@$(CC) $(INCS) $(CFLAGS) -c $< -o $@
 
-PERF:		fclean $(PHILO_OBJ)
+max_perf:	fclean $(PHILO_OBJ)
 			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
 			@$(CC) $(INCS) $(CFLAGS) $(PERFORMANCE) $(PHILO_OBJ) -o $(NAME)
 

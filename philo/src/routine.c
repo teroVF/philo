@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:23:05 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/29 15:56:25 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/30 00:23:58 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static void	pick_forks(t_philo *philo, int sit)
 static void	one_philo(t_philo *philo)
 {
 	print_msg(philo, FORK);
-	while (1){
+	while (1)
+	{
 		pthread_mutex_lock(&philo->program->m_stop);
 		if (philo->program->stop == 1)
 		{

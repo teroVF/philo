@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:23:05 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/29 17:31:30 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/30 00:10:15 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,48 +36,16 @@ void	sleeping(t_philo *philo)
 	usleep(philo->program->time_sleep * 1000);
 }
 
-int		one_philo(t_philo *philo)
+int	one_philo(t_philo *philo)
 {
 	print_msg(philo, FORK);
 	while (1)
 		;
 }
-void *monitor(void *arg)
-{
-	t_philo *philo;
-	struct timeval	time;
-	int flag;
-
-	
-	philo = (t_philo *)arg;
-	flag = 0;
-	while (1)
-	{
-		sem_wait(philo->program->dead);
-		set_time(&time);
-		if (deltatime(philo->last_meal, time) > philo->program->time_die)
-		{
-			print_msg(philo, DEAD);
-			exit(1);
-		}
-		sem_post(philo->program->dead);	
-		sem_wait(philo->program->dead);
-		if (philo->program->meals != -1 && philo->numb_meals == philo->program->meals 
-			&& flag == 0)
-		{
-			sem_post(philo->program->eat);
-			printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n");
-			flag = 1;
-		}
-		sem_post(philo->program->dead);	
-		
-	}
-	return	(NULL);
-}
 
 int	routine(t_philo *philo)
 {
-	print_msg(philo, THINKING);
+	philo->last_meal = philo->program->start;
 	if (pthread_create(&philo->check_events, NULL, monitor, philo) != 0)
 		return (error_msg(CREATE_THREAD_ERROR));
 	if (pthread_detach(philo->check_events) != 0)
@@ -89,6 +57,7 @@ int	routine(t_philo *philo)
 	}
 	while (1)
 	{
+		usleep(1000);
 		pick_forks(philo);
 		eating(philo);
 		sleeping(philo);

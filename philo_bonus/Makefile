@@ -12,7 +12,7 @@ PERFORMANCE = -O3 -march=native -flto -funroll-loops
 RM = rm -fr
 
 #Sources
-FILES        =     	main validate utls philo time routine sem
+FILES        =     	main validate utls utls2 philo time routine sem
 
 # BONUS_FILES	=		
 
@@ -38,7 +38,7 @@ all: $(NAME)
 #MANDATORY
 $(NAME):	$(PHILO_OBJ)
 			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
-			@$(CC) $(INCS) $(CFLAGS) $(DEBUG_T) $(PHILO_OBJ) -o $@
+			@$(CC) $(INCS) $(CFLAGS) -O3 $(PHILO_OBJ) -o $@
 
 $(OBJ_PATH)%.o:		$(SRC_PATH)%.c
 			@mkdir -p $(OBJ_PATH)

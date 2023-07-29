@@ -6,11 +6,11 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 22:03:35 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/28 00:10:06 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/30 00:25:38 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
 static long long	utime(struct timeval t)
 {
