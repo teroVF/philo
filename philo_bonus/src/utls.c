@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utls.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:22:54 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/29 03:35:48 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/29 17:27:33 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void print_msg(t_philo *philo, char *msg)
 	struct timeval	time;
 	sem_wait(philo->program->write);
 	if (philo->m_stop == 1)
+	{
+		sem_post(philo->program->write);
 		return ;
+	}
 	set_time(&time);
 	if (strcmp(msg, DEAD) == 0)
 	{

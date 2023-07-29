@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:23:05 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/29 15:44:12 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/29 17:31:30 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void *monitor(void *arg)
 			&& flag == 0)
 		{
 			sem_post(philo->program->eat);
+			printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n");
 			flag = 1;
 		}
 		sem_post(philo->program->dead);	
@@ -76,6 +77,7 @@ void *monitor(void *arg)
 
 int	routine(t_philo *philo)
 {
+	print_msg(philo, THINKING);
 	if (pthread_create(&philo->check_events, NULL, monitor, philo) != 0)
 		return (error_msg(CREATE_THREAD_ERROR));
 	if (pthread_detach(philo->check_events) != 0)

@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/29 06:44:30 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/29 17:44:13 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,25 @@
 static void data(t_program *program)
 {
 	printf("n_philos: %d\n", program->nbr_philo);
-	printf("time_die: %lu\n", program->time_die);
-	printf("time_eat: %lu\n", program->time_eat);
-	printf("time_sleep: %lu\n", program->time_sleep);
+	printf("time_die: %lu ms\n", program->time_die);
+	printf("time_eat: %lu ms\n", program->time_eat);
+	printf("time_sleep: %lu ms\n", program->time_sleep);
 	if (program->meals != -1)
 		printf("meals: %d\n", program->meals);
 }
 void	monitorizing_food (void *arg)
 {
 	int flag_all_eat;
-	int i;
 	t_program *program;
 
-	printf("monitorizing_food\n");
 	flag_all_eat = 0;
-	i = 0;
 	program = (t_program *)arg;
 	while(1)
 	{
 		sem_wait(program->eat);
 		flag_all_eat++;
 		if (flag_all_eat == program->nbr_philo)
-		{
-			while (i < program->nbr_philo)
-			{
-				kill(program->philo[i]->pid, 15);
-				i++;
-				break;
-			}
-		}
+			break;
 	}
 	exit (3);
 }
@@ -86,18 +76,16 @@ static int	simulation(t_philo **philo)
 		n++;
 	while (++i < n)
 	{
+		printf("n: %d\n", n);
 		pid = fork();
 		if (pid == 0 && i < philo[0]->program->nbr_philo)
 		{
 			philo[i]->last_meal = philo[i]->program->start;
 			routine(philo[i]);
-			exit(0);
 		}
 		else if (pid == 0 && i == philo[0]->program->nbr_philo)
 		{
-			printf("monitorizing_food\n");
 			monitorizing_food(philo[0]->program);
-			exit(3);
 		}
 		else if (pid < 0)
 			return (error_msg(FORK_ERROR));
@@ -129,9 +117,9 @@ int main(int ac, char *av[])
 	data(&program);
 	if (simulation(philo) == 1)
 	{
-		printf("error\n");
 		free_program(philo[0]->program);
 		return (EXIT_FAILURE);
 	}
+	printf("end\n");
 	return (EXIT_SUCCESS);
 }
