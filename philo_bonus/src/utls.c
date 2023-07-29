@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:22:54 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/28 03:51:24 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/29 03:35:48 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,20 @@ int	error_msg(char *error_msg)
 
 void print_msg(t_philo *philo, char *msg)
 {
+	struct timeval	time;
 	sem_wait(philo->program->write);
-	if (philo->program->someone_dead == false)
+	if (philo->m_stop == 1)
+		return ;
+	set_time(&time);
+	if (strcmp(msg, DEAD) == 0)
+	{
+		printf("%lu %d %s\n", 
+			deltatime(philo->program->start, time) , philo->sit, DEAD);
+		philo->m_stop = 1;
+	}
+	else
 		printf("%lu %d %s\n", 
 			deltatime(philo->program->start, time) , philo->sit, msg);
-	else if (philo->dead == true)
-		printf("%lu, the philo n %d %s\n", 
-			deltatime(philo->program->start, time) , philo->sit, DEAD);
 	sem_post(philo->program->write);
 }
 

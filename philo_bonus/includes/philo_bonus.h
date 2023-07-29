@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/28 03:40:19 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/29 03:33:44 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,14 @@
 typedef struct	s_philo
 {
 	pthread_t			check_events;
+	pthread_mutex_t		stop;
+	bool				m_stop;
 	int					pid;
 	bool				even;
 	bool				eating;
 	int					sit;
 	int					numb_meals;
-	time_t				last_meal;
+	struct timeval		last_meal;
 	bool				is_full;
 	bool				dead;
 	struct s_program	*program;
@@ -51,8 +53,10 @@ typedef struct s_program
 	sem_t			*forks;
 	sem_t			*write;
 	sem_t			*dead;
-	sem_t			*stop;
-	time_t			start;
+	sem_t			*eat;
+	pthread_t		moni_food;
+	pthread_t		moni_dead;
+	struct timeval	start;
 	t_philo			**philo;
 	time_t			time_sleep;
 	time_t			time_eat;
@@ -66,8 +70,7 @@ int			routine(t_philo *philo);
 void		free_program(t_program *program);
 
 /* TIME */
-void    	ft_usleep(time_t mi_s);
-time_t   	check_time(time_t start);
+
 
 /* UTLS */
 time_t		ft_atoi(const char *str);
@@ -78,5 +81,7 @@ void		print_msg(t_philo *philo, char *msg);
 
 /* MUTEX INIT AND FREE */
 int		semaph_init(t_program *program);
+time_t	deltatime(struct timeval t0, struct timeval t1);
+int	set_time(struct timeval *t);
 
 #endif

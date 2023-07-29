@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/28 03:37:28 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/29 02:10:16 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void destroy_sem(t_program *program)
 	sem_close(program->forks);
 	sem_close(program->write);
 	sem_close(program->dead);
-	sem_close(program->stop);
+	sem_close(program->eat);
 	sem_unlink("forks");
 	sem_unlink("write");
 	sem_unlink("dead");
-	sem_unlink("stop");
+	sem_unlink("eat");
 }
 
 void free_program(t_program *program)
@@ -75,6 +75,6 @@ int	simulation_init(t_program *program, char **argv, int argc)
 	while (++n < program->nbr_philo)
 		program->philo[n] = philo_init(program, n);
 	if (semaph_init(program) == 0)
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
