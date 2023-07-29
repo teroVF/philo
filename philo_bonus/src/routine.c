@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:23:05 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/29 03:47:50 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/29 15:44:12 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,12 @@ int		one_philo(t_philo *philo)
 void *monitor(void *arg)
 {
 	t_philo *philo;
-	int flag_all_eat;
 	struct timeval	time;
 	int flag;
 
 	
 	philo = (t_philo *)arg;
 	flag = 0;
-	flag_all_eat = 0;
 	while (1)
 	{
 		sem_wait(philo->program->dead);
@@ -60,7 +58,6 @@ void *monitor(void *arg)
 		if (deltatime(philo->last_meal, time) > philo->program->time_die)
 		{
 			print_msg(philo, DEAD);
-			printf("adeus\n");
 			exit(1);
 		}
 		sem_post(philo->program->dead);	

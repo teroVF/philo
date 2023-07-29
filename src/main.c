@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/28 03:22:42 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/29 15:59:40 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static void	data(t_program *program)
 {
 	printf("n_philos: %d\n", program->nbr_philo);
-	printf("time_die: %lu\n", program->time_die);
-	printf("time_eat: %lu\n", program->time_eat);
-	printf("time_sleep: %lu\n", program->time_sleep);
+	printf("time_die: %lu ms\n", program->time_die);
+	printf("time_eat: %lu ms\n", program->time_eat);
+	printf("time_sleep: %lu ms\n", program->time_sleep);
 	if (program->meals != -1)
 		printf("meals: %d\n", program->meals);
 }

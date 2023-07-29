@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/29 03:52:58 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/29 06:44:30 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void data(t_program *program)
 	if (program->meals != -1)
 		printf("meals: %d\n", program->meals);
 }
-void	*monitorizing_food (void *arg)
+void	monitorizing_food (void *arg)
 {
 	int flag_all_eat;
 	int i;
@@ -45,7 +45,7 @@ void	*monitorizing_food (void *arg)
 			}
 		}
 	}
-	return (NULL);
+	exit (3);
 }
 
 
@@ -54,8 +54,7 @@ void *exit_program(void *arg)
 	int i;
 	int status;
 	t_program *program;
-	
-	printf("exit_program\n");
+
 	program = (t_program *)arg;
 	i = 0;
 	while (i < program->nbr_philo)
@@ -71,6 +70,7 @@ void *exit_program(void *arg)
 		}
 		i++;
 	}
+	free_program(program);
 	return (NULL);
 }
 
@@ -81,22 +81,30 @@ static int	simulation(t_philo **philo)
 
 	i = -1;
 	set_time(&(philo[0]->program->start));
-	while (++i < philo[0]->program->nbr_philo)
+	int n = philo[0]->program->nbr_philo;
+	if (philo[0]->program->meals != -1)
+		n++;
+	while (++i < n)
 	{
 		pid = fork();
-		if (pid == 0)
+		if (pid == 0 && i < philo[0]->program->nbr_philo)
 		{
 			philo[i]->last_meal = philo[i]->program->start;
 			routine(philo[i]);
+			exit(0);
+		}
+		else if (pid == 0 && i == philo[0]->program->nbr_philo)
+		{
+			printf("monitorizing_food\n");
+			monitorizing_food(philo[0]->program);
+			exit(3);
 		}
 		else if (pid < 0)
 			return (error_msg(FORK_ERROR));
-		philo[i]->pid = pid;
-		i++;
+		if 	(pid > 0 && i < philo[0]->program->nbr_philo)
+			philo[i]->pid = pid;
 	}
-	printf("simulation\n");
-	pthread_create(&philo[0]->program->moni_food, NULL, monitorizing_food, philo[0]->program);
-	pthread_create(&philo[0]->program->moni_dead, NULL, exit_program, philo[0]->program);
+	exit_program(philo[0]->program);
 	return (0);
 }
 
@@ -121,17 +129,9 @@ int main(int ac, char *av[])
 	data(&program);
 	if (simulation(philo) == 1)
 	{
+		printf("error\n");
 		free_program(philo[0]->program);
 		return (EXIT_FAILURE);
 	}
-	void *status = NULL;
-	
-	pthread_join(philo[0]->program->moni_dead, status);
-	pthread_join(philo[0]->program->moni_food, status);
-	if (status == 0)
-		printf("todos comeram\n");
-	else
-		printf("alguem morreu\n");
-	free_program(philo[0]->program);
 	return (EXIT_SUCCESS);
 }
