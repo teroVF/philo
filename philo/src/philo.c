@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/30 17:40:45 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/30 22:31:36 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void	free_mutex(t_program *program)
 	n = program->nbr_philo;
 	pthread_mutex_unlock(&program->m_stop);
 	pthread_mutex_destroy(&program->m_stop);
-	pthread_mutex_destroy(&program->write);
 	while (++i < n)
 	{
 		if (&program->mutex_fork[i] != NULL && program->mutex_fork != NULL)
