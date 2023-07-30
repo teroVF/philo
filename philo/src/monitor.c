@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 02:53:30 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/28 03:22:17 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/30 17:09:58 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	*monitor(void *arg)
 		if (deltatime(program->philo[i]->last_meal, time) > program->time_die)
 		{
 			pthread_mutex_unlock(&program->m_stop);
-			return (if_philo_died(program->philo[i]));
+			if_philo_died(program->philo[i]);
+			return (NULL);
 		}
 		if (if_everybody_is_full(program, i))
 			return (NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 02:23:05 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/30 00:10:15 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/30 06:12:27 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ void	pick_forks(t_philo *philo)
 void	eating(t_philo *philo)
 {
 	print_msg(philo, EATING);
+	sem_wait(philo->program->dead);
 	set_time(&philo->last_meal);
 	if (philo->program->meals != -1)
 		philo->numb_meals++;
+	sem_post(philo->program->dead);
 	usleep(philo->program->time_eat * 1000);
 	sem_post(philo->program->forks);
 	sem_post(philo->program->forks);

@@ -5,8 +5,7 @@ CC = cc
 SRC_PATH = src/
 OBJ_PATH = obj/
 bonus_PATH = bonus/
-CFLAGS = -Wall -Werror -Wextra -pthread
-DEBUG = -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -pthread 
 DEBUG_T = -fsanitize=thread
 PERFORMANCE = -O3 -march=native -flto -funroll-loops
 RM = rm -fr
@@ -38,7 +37,7 @@ all: $(NAME)
 #MANDATORY
 $(NAME):	$(PHILO_OBJ)
 			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
-			@$(CC) $(INCS) $(CFLAGS) -O3 $(PHILO_OBJ) -o $@
+			@$(CC) $(INCS) $(CFLAGS) $(PHILO_OBJ) -o $@
 
 $(OBJ_PATH)%.o:		$(SRC_PATH)%.c
 			@mkdir -p $(OBJ_PATH)
