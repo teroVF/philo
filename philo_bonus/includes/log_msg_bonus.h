@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 03:53:52 by antero            #+#    #+#             */
-/*   Updated: 2023/07/30 23:09:13 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/30 23:27:12 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LOG_MSG_BONUS_H
 
 /* COLORS */
+/* ONLY USE FOR DEBUGGING */
 # define DEF "\033[0;39m"
 # define GRAY "\033[0;90m"
 # define RED "\033[0;91m"
