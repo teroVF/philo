@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 22:16:51 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/30 00:00:55 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/30 23:09:44 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ void	print_msg(t_philo *philo, char *msg)
 	set_time(&time);
 	if (strcmp(msg, DEAD) == 0)
 	{
-		printf("%lu %d %s\n", 
-			deltatime(philo->program->start, time), philo->sit, DEAD);
+		printf(msg, 
+			deltatime(philo->program->start, time), philo->sit);
 		philo->m_stop = 1;
 		return ;
 	}
 	else
-		printf("%lu %d %s\n", 
-			deltatime(philo->program->start, time), philo->sit, msg);
+		printf(msg, 
+			deltatime(philo->program->start, time), philo->sit);
 	sem_post(philo->program->write);
 }
 
