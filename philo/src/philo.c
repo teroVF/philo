@@ -3,52 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:30:16 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/26 03:55:45 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/30 22:31:36 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void free_mutex(t_program *program)
+static void	free_mutex(t_program *program)
 {
-	int i;
-	int n;
+	int	i;
+	int	n;
 
 	i = -1;
 	n = program->nbr_philo;
+	pthread_mutex_unlock(&program->m_stop);
+	pthread_mutex_destroy(&program->m_stop);
 	while (++i < n)
 	{
 		if (&program->mutex_fork[i] != NULL && program->mutex_fork != NULL)
 			pthread_mutex_destroy(&program->mutex_fork[i]);
 	}
 	free(program->mutex_fork);
-	if (program->dead != NULL)
-		pthread_mutex_destroy(program->dead);
-	if (program->write != NULL)
-		pthread_mutex_destroy(program->write);
-	free(program->dead);
-	free(program->write);
 }
 
-void free_program(t_program *program)
+void	free_program(t_program *program)
 {
-	int i;
-	int n;
+	int	i;
+	int	n;
 
 	i = -1;
 	n = program->nbr_philo;
-
-	while(++i < n)
-	{
-		if (program->philo[i]->eating == true)
-		{
-			pthread_mutex_unlock(&program->mutex_fork[program->philo[i]->sit - 1]);
-			pthread_mutex_unlock(&program->mutex_fork[program->philo[i]->sit % program->nbr_philo]);
-		}
-	}
+	pthread_mutex_lock(&program->m_stop);
 	free_mutex(program);
 	i = -1;
 	while (++i < n)
@@ -58,30 +46,31 @@ void free_program(t_program *program)
 
 t_philo	*philo_init(t_program *program, int n)
 {
-	t_philo *philo;
-	
+	t_philo	*philo;
+
 	philo = malloc(sizeof(t_philo));
 	if (philo == NULL)
+	{
 		error_msg(MALLOC_ERROR);
+		return (NULL);
+	}
 	philo->sit = n + 1;
-	philo->even = EVEN(philo->sit);
-	philo->is_full = false;
-	philo->dead = false;
-	philo->eating = false;
+	philo->even = n % 2;
+	philo->is_full = FALSE;
 	philo->program = program;
 	if (program->meals != -1)
 		philo->numb_meals = 0;
 	else
 		philo->numb_meals = -1;
-	return (philo);	
+	return (philo);
 }
 
 int	simulation_init(t_program *program, char **argv, int argc)
 {
-	int		n;
+	int	n;
 
 	n = -1;
-	program->nbr_philo = (int)ft_atoi(argv[1]);
+	program->nbr_philo = (int) ft_atoi(argv[1]);
 	program->time_die = ft_atoi(argv[2]);
 	program->time_eat = ft_atoi(argv[3]);
 	program->time_sleep = ft_atoi(argv[4]);

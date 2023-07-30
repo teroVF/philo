@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   log_msg_bonus.h                                    :+:      :+:    :+:   */
+/*   log_msg.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/17 03:53:52 by antero            #+#    #+#             */
-/*   Updated: 2023/07/30 23:27:12 by anvieira         ###   ########.fr       */
+/*   Created: 2023/07/28 03:23:55 by anvieira          #+#    #+#             */
+/*   Updated: 2023/07/30 23:00:32 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LOG_MSG_BONUS_H
-# define LOG_MSG_BONUS_H
+#ifndef LOG_MSG_H
+# define LOG_MSG_H
 
-/* COLORS */
-/* ONLY USE FOR DEBUGGING */
 # define DEF "\033[0;39m"
 # define GRAY "\033[0;90m"
 # define RED "\033[0;91m"
@@ -43,8 +41,6 @@
 # define JOIN_THREAD_ERROR RED"Error joining thread"DEF
 # define ALL_ARGUMENTS RED"./PHILONBR NBR_PHILOSOPHERS \
 TIME_TO_DIE TIME_TO_EAT TIME_TO_SLEEP [NBR_MEALS]"DEF
-# define FORK_ERROR RED"Error creating fork"DEF
-# define SEM_ERROR_FORK RED"Error creating semaphore for fork"DEF
 
 /* PHILO ACTIONS */
 # define EATING MAGENTA"%lu %d is eating\n"DEF

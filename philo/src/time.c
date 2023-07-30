@@ -3,36 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 22:03:35 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/26 04:36:54 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/28 00:10:06 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-time_t	milliseconds(void)
+static long long	utime(struct timeval t)
 {
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+	return (t.tv_sec * 1000000 + t.tv_usec);
 }
 
-void	ft_usleep(time_t mi_s)
+int	set_time(struct timeval *t)
 {
-	time_t	start;
-
-	start = milliseconds();
-	while ((milliseconds() - start) * 1000 < mi_s)
-		continue ;
+	if (gettimeofday(t, NULL) == -1)
+	{
+		printf("Error: gettimeofday\n");
+		return (1);
+	}
+	return (0);
 }
 
-time_t	check_time(time_t start)
+time_t	deltatime(struct timeval t0, struct timeval t1)
 {
-	time_t	real_time;
-
-	real_time = (milliseconds()) - start;
-	return (real_time);
+	return ((utime(t1) - utime(t0)) / 1000);
 }

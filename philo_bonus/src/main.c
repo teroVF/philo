@@ -3,100 +3,121 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:42:18 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/26 04:15:53 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/30 00:01:48 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
 
-static void data(t_program *program)
+static void	data(t_program *program)
 {
 	printf("n_philos: %d\n", program->nbr_philo);
-	printf("time_die: %lu\n", program->time_die);
-	printf("time_eat: %lu\n", program->time_eat);
-	printf("time_sleep: %lu\n", program->time_sleep);
+	printf("time_die: %lu ms\n", program->time_die);
+	printf("time_eat: %lu ms\n", program->time_eat);
+	printf("time_sleep: %lu ms\n", program->time_sleep);
 	if (program->meals != -1)
 		printf("meals: %d\n", program->meals);
 }
-void exit_program(t_philo **philo)
-{
-	int i;
-	i = 0;
-	int status;
 
-	while (i < philo[0]->program->nbr_philo)
+void	monitorizing_food(void *arg)
+{
+	int			flag_all_eat;
+	t_program	*program;
+
+	flag_all_eat = 0;
+	program = (t_program *)arg;
+	while (1)
+	{
+		sem_wait(program->eat);
+		flag_all_eat++;
+		if (flag_all_eat == program->nbr_philo)
+			break ;
+	}
+	exit (1);
+}
+
+void	*exit_program(void *arg)
+{
+	int			i;
+	int			status;
+	t_program	*program;
+
+	program = (t_program *)arg;
+	i = 0;
+	while (i < program->nbr_philo)
 	{
 		waitpid(-1, &status, 0);
 		if (WIFEXITED(status))
 		{
-			while (i < philo[0]->program->nbr_philo)
+			while (i < program->nbr_philo)
 			{
-				kill(philo[i]->pid, 15);
+				kill(program->philo[i]->pid, 2);
 				i++;
 			}
 		}
-		else
-			printf("error\n");
 		i++;
 	}
+	if (program->philo[0]->program->meals != -1)
+		kill(program->moni_food, 2);
+	free_program(program);
+	return (NULL);
 }
 
-static void	simulation(t_philo **philo)
+static int	simulation(t_philo **philo)
 {
-	int i;
-	int pid;
+	int	i;
+	int	pid;
+	int	n; 
 
-	i = 0;
-	philo[0]->program->start = check_time(0);
-	while (i < philo[0]->program->nbr_philo)
+	i = -1;
+	set_time(&(philo[0]->program->start));
+	n = philo[0]->program->nbr_philo;
+	if (philo[0]->program->meals != -1)
+		n++;
+	while (++i < n)
 	{
 		pid = fork();
-		if (pid == 0)
-		{
+		if (pid == 0 && i < philo[0]->program->nbr_philo)
 			routine(philo[i]);
-			exit(0);
-		}
+		else if (pid == 0 && i == philo[0]->program->nbr_philo)
+			monitorizing_food(philo[0]->program);
 		else if (pid < 0)
-			error_msg(FORK_ERROR);
-		philo[i]->pid = pid;
-		i++;
+			return (error_msg(FORK_ERROR));
+		if (pid > 0 && i < philo[0]->program->nbr_philo)
+			philo[i]->pid = pid;
+		else if (pid > 0 && i == philo[0]->program->nbr_philo)
+			philo[0]->program->moni_food = pid;
 	}
-	exit_program(philo);
-
+	return (0);
 }
 
-int main(int ac, char *av[])
+int	main(int ac, char *av[])
 {
-	t_program 	program;
-	t_philo 	**philo;
+	t_program	program;
+	t_philo		**philo;
 
 	if (ac < 5)
-	{
-		error_msg(FEW_ARG);
-		return (EXIT_FAILURE);
-	}
-	if (ac > 6)
-	{
-		error_msg(MANY_ARG);
-		return (EXIT_FAILURE);
-	}
+		return (error_msg(FEW_ARG));
+	else if (ac > 6)
+		return (error_msg(MANY_ARG));
 	if (!validate_args(av, ac))
 		return (EXIT_FAILURE);
 	memset(&program, 0, sizeof(t_program));
-	if (!simulation_init(&program, av, ac))
+	if (simulation_init(&program, av, ac) == 1)
 	{
 		free_program(&program);
 		return (EXIT_FAILURE);
 	}
 	philo = program.philo;
 	data(&program);
-	simulation(philo);
-	sem_wait(program.write);
-	sem_post(program.write);
-	free_program(&program);
-	kill(0, 2);
+	if (simulation(philo) == 1)
+	{
+		free_program(philo[0]->program);
+		return (EXIT_FAILURE);
+	}
+	exit_program(philo[0]->program);
 	return (EXIT_SUCCESS);
 }

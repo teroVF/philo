@@ -6,13 +6,14 @@ SRC_PATH = src/
 OBJ_PATH = obj/
 bonus_PATH = bonus/
 CFLAGS = -Wall -Werror -Wextra -pthread
-DEBUG = -g -fsanitize=address
+DEBUG = -fsanitize=address
 DEBUG_T = -fsanitize=thread
+GDB = -g3 #use valgrind --tool=helgrind ./philo $ARGS
 PERFORMANCE = -O3 -march=native -flto -funroll-loops
 RM = rm -fr
 
 #Sources
-FILES        =     	main validate utls utls2 philo time routine mutex
+FILES        =     	main validate utls utls2 philo time routine mutex monitor
 
 # BONUS_FILES	=		
 
@@ -38,14 +39,14 @@ all: $(NAME)
 #MANDATORY
 $(NAME):	$(PHILO_OBJ)
 			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
-			@$(CC) $(INCS) $(CFLAGS) $(DEBUG_T) $(PHILO_OBJ) -o $@
+			@$(CC) $(INCS) $(CFLAGS) -O3 $(PHILO_OBJ) -o $@
 
 $(OBJ_PATH)%.o:		$(SRC_PATH)%.c
 			@mkdir -p $(OBJ_PATH)
 			@echo "$(YELLOW) Compiling: $< $(DEF_COLOR)"
 			@$(CC) $(INCS) $(CFLAGS) -c $< -o $@
 
-PERF:		fclean $(PHILO_OBJ)
+max_perf:	fclean $(PHILO_OBJ)
 			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
 			@$(CC) $(INCS) $(CFLAGS) $(PERFORMANCE) $(PHILO_OBJ) -o $(NAME)
 
@@ -56,6 +57,10 @@ debug:		fclean $(PHILO_OBJ)
 debug_t:	fclean $(PHILO_OBJ)
 			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
 			@$(CC) $(INCS) $(CFLAGS) $(DEBUG_T) $(PHILO_OBJ) -o $(NAME)
+
+gdb:		fclean $(PHILO_OBJ)
+			@echo "$(YELLOW) Compiling: $@ $(DEF_COLOR)"
+			@$(CC) $(INCS) $(CFLAGS) $(GDB) $(PHILO_OBJ) -o $(NAME)
 
 size: 
 			@echo "$(YELLOW)Size of the executable:$(DEF_COLOR)"
