@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/30 00:25:20 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/30 23:17:18 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,16 @@
 typedef struct s_philo
 {
 	pthread_t			check_events;
-	pthread_mutex_t		stop;
 	bool				m_stop;
 	int					pid;
-	bool				even;
-	bool				eating;
 	int					sit;
 	int					numb_meals;
 	struct timeval		last_meal;
-	bool				is_full;
-	bool				dead;
 	struct s_program	*program;
 }						t_philo;
 
 typedef struct s_program
 {
-	int				someone_dead;
 	int				nbr_philo;
 	int				meals;
 	int				count_philo;
@@ -61,26 +55,31 @@ typedef struct s_program
 	time_t			time_die;
 }					t_program;
 
-int			simulation_init(t_program *program, char **argv, int argc);
+/* Validation */
 int			validate_args(char **argv, int argc);
-int			error_msg(char *error_msg);
-int			routine(t_philo *philo);
-void		free_program(t_program *program);
 
-/* TIME */
-int			semaph_init(t_program *program);
+/* each philo */
+int			routine(t_philo *philo);
+
+/* Funtion to check if philo died*/
+void		*monitor(void *arg);
+
+/* time */
 time_t		deltatime(struct timeval t0, struct timeval t1);
 int			set_time(struct timeval *t);
 
-/* UTLS */
+/* utls */
+int			error_msg(char *error_msg);
+void		print_msg(t_philo *philo, char *msg);
 time_t		ft_atoi(const char *str);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putstr_fd(char *s, int fd);
 int			ft_strcmp(const char *s1, const char *s2);
-void		print_msg(t_philo *philo, char *msg);
 int			ft_strlen(const char *str);
-void		*monitor(void *arg);
 
-/* SEM INIT AND FREE */
+/* init and free */
+int			simulation_init(t_program *program, char **argv, int argc);
+int			semaph_init(t_program *program);
+void		free_program(t_program *program);
 
 #endif

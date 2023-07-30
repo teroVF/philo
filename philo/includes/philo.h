@@ -6,7 +6,7 @@
 /*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:35:31 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/28 03:27:26 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/30 23:14:19 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_program
 	int				count_philo;
 	pthread_t		check_time;
 	pthread_mutex_t	*mutex_fork;
-	pthread_mutex_t	write;
 	pthread_mutex_t	m_stop;
 	time_t			time_die;
 	time_t			time_sleep;
