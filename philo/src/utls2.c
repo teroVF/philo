@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utls2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anvieira <anvieira@student.42porto.com     +#+  +:+       +#+        */
+/*   By: anvieira <anvieira@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 04:14:09 by anvieira          #+#    #+#             */
-/*   Updated: 2023/07/30 06:25:21 by anvieira         ###   ########.fr       */
+/*   Updated: 2023/07/30 23:07:22 by anvieira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	error_msg(char *error_msg)
 	{
 		ft_putstr_fd("Usage: ./philo number_of_philo", STDERR_FILENO);
 		ft_putstr_fd("time_to_die time_to_eat ", STDERR_FILENO);
-		ft_putendl_fd("time_to_sleep [number eats]\n", STDERR_FILENO);
+		ft_putendl_fd("time_to_sleep [number eats]", STDERR_FILENO);
 	}
 	return (1);
 }
@@ -34,18 +34,16 @@ void	print_msg(t_philo *philo, char *msg)
 		pthread_mutex_unlock(&philo->program->m_stop);
 		return ;
 	}
-	pthread_mutex_lock(&philo->program->write);
 	set_time(&time);
 	if (strcmp(msg, DEAD) == 0)
 	{
-		printf("%lu %d %s\n",
-			deltatime(philo->program->start, time), philo->sit, DEAD);
+		printf(msg,
+			deltatime(philo->program->start, time), philo->sit);
 		philo->program->stop = 1;
 	}
 	else
-		printf("%lu %d %s\n",
-			deltatime(philo->program->start, time), philo->sit, msg);
-	pthread_mutex_unlock(&philo->program->write);
+		printf(msg,
+			deltatime(philo->program->start, time), philo->sit);
 	pthread_mutex_unlock(&philo->program->m_stop);
 }
 
